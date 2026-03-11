@@ -23,7 +23,7 @@ const RIFIUTI_LEGNO = 0.4;
 const RIFIUTI_INDIFFERENZIATI = 0.643;
 
 // Benchmark di riferimento (kg CO2e/anno)
-const BENCHMARK = 5000;
+const BENCHMARK = 6000;
 
 function calculateScope1(inputs) {
   const gasMetanoMc = inputs.gasMetanoMc || 0;
