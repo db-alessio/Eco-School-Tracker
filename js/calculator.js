@@ -22,7 +22,8 @@ const RIFIUTI_METALLI = 0.6;
 const RIFIUTI_LEGNO = 0.4;
 const RIFIUTI_INDIFFERENZIATI = 0.643;
 
-// Benchmark di riferimento (kg CO2e/anno)
+// Benchmark di riferimento (kg CO2e/anno), basato su una scuola tipo italiana
+// e includendo anche le emissioni dirette (Scope 1) oltre a energia, rifiuti e trasporti.
 const BENCHMARK = 6000;
 
 function calculateScope1(inputs) {
@@ -116,9 +117,9 @@ function calculateScoreFromEmissions(totalKg) {
     return 1;
   }
 
-  // Modello lineare semplice:
-  // 0 kg  -> punteggio 10
-  // BENCHMARK -> punteggio 5
+  // Modello lineare semplice sul totale usato per il punteggio:
+  // 0 kg              -> punteggio 10
+  // BENCHMARK (6.000) -> punteggio 5
   // valori più alti del benchmark fanno scendere ulteriormente fino a 1
   const ratio = totalKg / BENCHMARK;
   let score = 10 - ratio * 5;
