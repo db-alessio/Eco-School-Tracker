@@ -324,7 +324,8 @@ document.addEventListener("DOMContentLoaded", function () {
     setScopeBar(scope1Bar, scope1ValEl, risultati.scope1, totaleReale);
     setScopeBar(scope2Bar, scope2ValEl, risultati.scope2, totaleReale);
     setScopeBar(scope3WasteBar, scope3WasteValEl, risultati.scope3Waste, totaleReale);
-    setScopeBar(scope3TransportBar, scope3TransportValEl, risultati.scope3Transport, totaleReale);
+    // Per lo Scope 4 mostriamo la media per persona, coerente con l'etichetta in UI
+    setScopeBar(scope3TransportBar, scope3TransportValEl, scope3TransportMedia, totaleReale);
 
   })();
 });

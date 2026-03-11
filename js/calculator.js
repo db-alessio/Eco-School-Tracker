@@ -1,6 +1,6 @@
 // Fattori di conversione (kg CO2e per unità indicata)
 const GAS_METANO = 2.02; // kg CO2e per m3 di gas metano
-const ENERGIA_MIX = 0.28; // kg CO2e per kWh da fonti non rinnovabili (mix nazionale)
+const ENERGIA_MIX = 0.352; // kg CO2e per kWh da fonti non rinnovabili (mix nazionale)
 const ENERGIA_RENEW = 0.352; // kg CO2e per kWh da fonti rinnovabili
 const ENERGIA_AUTOPROD = 0.0724; // kg CO2e per kWh da energia autoprodotta
 const ENERGIA_AUTOCONS = 0.0724; // kg CO2e per kWh da energia autoconsumata
