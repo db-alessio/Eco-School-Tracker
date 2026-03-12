@@ -1,7 +1,7 @@
 // Fattori di conversione (kg CO2e per unità indicata)
 const GAS_METANO = 2.02; // kg CO2e per m3 di gas metano
 const ENERGIA_MIX = 0.352; // kg CO2e per kWh da fonti non rinnovabili (mix nazionale)
-const ENERGIA_RENEW = 0.352; // kg CO2e per kWh da fonti rinnovabili
+const ENERGIA_RENEW = 0; // kg CO2e per kWh da fonti rinnovabili
 const ENERGIA_AUTOPROD = 0.0724; // kg CO2e per kWh da energia autoprodotta
 const ENERGIA_AUTOCONS = 0.0724; // kg CO2e per kWh da energia autoconsumata
 
@@ -10,8 +10,8 @@ const ALTRI_COMBUSTIBILI = 2.5; // kg CO2e per kg
 
 // Valori medi indicativi per i diversi mezzi (kg CO2e/km)
 const AUTO_MEDIA = 0.351;
-const AUTOBUS_MEDIA = 0.12;
-const AUTO_ELETTRICA = 0.239;
+const AUTOBUS_MEDIA = 0.09;
+const AUTO_ELETTRICA = 0.05;
 const A_PIEDI = 0;
 
 // Rifiuti: fattori molto semplificati per tipologia (kg CO2e per kg)
@@ -22,8 +22,9 @@ const RIFIUTI_METALLI = 0.6;
 const RIFIUTI_LEGNO = 0.4;
 const RIFIUTI_INDIFFERENZIATI = 0.643;
 
-// Benchmark di riferimento (kg CO2e/anno), basato su una scuola tipo italiana
-// e includendo anche le emissioni dirette (Scope 1) oltre a energia, rifiuti e trasporti.
+// Benchmark di riferimento storico (kg CO2e/anno) basato su una scuola tipo italiana.
+// Non viene più utilizzato direttamente per il calcolo del punteggio, che ora si basa
+// su fasce di emissioni pro-capite (kg CO2e per persona/anno).
 const BENCHMARK = 6000;
 
 function calculateScope1(inputs) {
@@ -112,28 +113,38 @@ function calculateTotalEmissions(allInputs) {
   };
 }
 
-function calculateScoreFromEmissions(totalKg) {
-  if (!isFinite(totalKg) || totalKg < 0) {
+function calculateScoreFromPerCapita(perCapitaKg) {
+  if (!isFinite(perCapitaKg) || perCapitaKg < 0) {
     return 1;
   }
 
-  // Modello lineare semplice sul totale usato per il punteggio:
-  // 0 kg              -> punteggio 10
-  // BENCHMARK (6.000) -> punteggio 5
-  // valori più alti del benchmark fanno scendere ulteriormente fino a 1
-  const ratio = totalKg / BENCHMARK;
-  let score = 10 - ratio * 5;
+  // Scala a fasce rigide basata su emissioni pro-capite (kg CO2e per persona/anno)
+  // 10: <150
+  // 9: 150–200
+  // 8: 201–275
+  // 7: 276–350
+  // 6: 351–425
+  // 5: 426–500
+  // 4: 501–575
+  // 3: 576–650
+  // 2: 651–750
+  // 1: >750
 
-  if (score < 1) score = 1;
-  if (score > 10) score = 10;
-
-  // Arrotondiamo a una cifra decimale per maggiore leggibilità
-  return Math.round(score * 10) / 10;
+  if (perCapitaKg < 150) return 10;
+  if (perCapitaKg <= 200) return 9;
+  if (perCapitaKg <= 275) return 8;
+  if (perCapitaKg <= 350) return 7;
+  if (perCapitaKg <= 425) return 6;
+  if (perCapitaKg <= 500) return 5;
+  if (perCapitaKg <= 575) return 4;
+  if (perCapitaKg <= 650) return 3;
+  if (perCapitaKg <= 750) return 2;
+  return 1;
 }
 
 // Esponiamo le funzioni in uno spazio dei nomi globale semplice
 window.EcoCalculator = {
   calculateTotalEmissions,
-  calculateScoreFromEmissions,
+  calculateScoreFromPerCapita,
 };
 

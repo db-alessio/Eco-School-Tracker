@@ -47,11 +47,13 @@
                 <strong><span id="totaleEmissioni">0</span> kg CO<span class="subscript">2</span>e/anno</strong>
               </p>
               <p class="mb-1">
-                Benchmark educativo di riferimento (scuola tipo in Italia, includendo anche le emissioni dirette):
-                <strong>6.000 kg CO<span class="subscript">2</span>e/anno</strong>.
+                Benchmark educativo di riferimento:
+                <strong>scala 1–10 basata sulle emissioni pro-capite</strong>
+                (kg CO<span class="subscript">2</span>e/anno per persona). Una scuola “nella media” si colloca intorno a
+                351–425 kg pro-capite (voto 6).
               </p>
               <p class="mb-3">
-                Emissioni pro-capite:
+                Emissioni pro-capite (inclusi i trasporti):
                 <strong><span id="emissioniProCapite">-</span> kg CO<span class="subscript">2</span>e/anno per persona</strong>
               </p>
 
@@ -59,17 +61,34 @@
                 <span id="facciaFeedback" style="font-size: 4rem;"></span>
               </div>
 
-              <div class="d-flex align-items-center justify-content-between mb-2">
-                <span class="fw-semibold">Punteggio complessivo</span>
-                <span class="badge text-bg-success-subtle text-success" id="punteggioBadge">- / 10</span>
+              <div class="mb-3">
+                <div class="d-flex align-items-center justify-content-between mb-1">
+                  <span class="fw-semibold">Punteggio complessivo (con trasporti)</span>
+                  <span class="badge text-bg-success-subtle text-success" id="punteggioBadgeCompleto">- / 10</span>
+                </div>
+
+                <div class="progress" role="progressbar" aria-label="Punteggio complessivo (con trasporti)">
+                  <div
+                    id="punteggioProgressCompleto"
+                    class="progress-bar"
+                    style="width: 0%"
+                  ></div>
+                </div>
               </div>
 
-              <div class="progress" role="progressbar" aria-label="Punteggio impatto climatico">
-                <div
-                  id="punteggioProgress"
-                  class="progress-bar"
-                  style="width: 0%"
-                ></div>
+              <div>
+                <div class="d-flex align-items-center justify-content-between mb-1">
+                  <span class="fw-semibold">Punteggio edificio &amp; rifiuti (senza trasporti)</span>
+                  <span class="badge text-bg-success-subtle text-success" id="punteggioBadgeSenzaTrasporti">- / 10</span>
+                </div>
+
+                <div class="progress progress-sm" role="progressbar" aria-label="Punteggio edificio e rifiuti (senza trasporti)">
+                  <div
+                    id="punteggioProgressSenzaTrasporti"
+                    class="progress-bar"
+                    style="width: 0%"
+                  ></div>
+                </div>
               </div>
             </div>
           </div>
@@ -141,7 +160,7 @@
 
               <div class="scope-bar-row">
                 <div class="d-flex justify-content-between align-items-center mb-1">
-                  <span>Scope 4 – Trasporti (media CO<span class="subscript">2</span> per persona)</span>
+                  <span>Scope 3 – Trasporti</span>
                   <span class="fw-semibold">
                     <span id="scope3TransportVal">0</span> kg CO<span class="subscript">2</span>e/anno
                   </span>
@@ -226,10 +245,15 @@
       };
 
       const risultati = window.EcoCalculator.calculateTotalEmissions(inputs);
-      const numeroStudenti = data.numeroStudenti || 0;
-      const scope3TransportMedia = numeroStudenti > 0 ? risultati.scope3Transport / numeroStudenti : risultati.scope3Transport;
-      const totalePerScore = risultati.scope1 + risultati.scope2 + risultati.scope3Waste + scope3TransportMedia;
-      const score = window.EcoCalculator.calculateScoreFromEmissions(totalePerScore);
+      const numeroPersone = data.numeroPersoneTotali || 0;
+      const totaleReale = risultati.total;
+      const perCapitaCompleto =
+        numeroPersone > 0 ? totaleReale / numeroPersone : totaleReale;
+
+      // Per la faccina usiamo il punteggio complessivo basato sulle emissioni pro-capite
+      const score = window.EcoCalculator.calculateScoreFromPerCapita(
+        perCapitaCompleto
+      );
       mostraFaccina(score);
     });
   </script>

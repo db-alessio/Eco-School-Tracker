@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
       aggiornaDistanzeTotali();
 
       const ecoFormData = {
-        numeroStudenti: readNumberValue("numeroStudenti"),
+        numeroPersoneTotali: readNumberValue("numeroPersoneTotali"),
         gasMetanoMc: readNumberValue("gasMetanoMc"),
         altriCombustibiliKg: readNumberValue("altriCombustibiliKg"),
         energiaNonRinnovabiliKwh: readNumberValue("energiaNonRinnovabiliKwh"),
@@ -187,8 +187,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultsCards = document.getElementById("resultsCards");
     const totaleEmissioniEl = document.getElementById("totaleEmissioni");
     const emissioniProCapiteEl = document.getElementById("emissioniProCapite");
-    const punteggioBadge = document.getElementById("punteggioBadge");
-    const punteggioProgress = document.getElementById("punteggioProgress");
+    const punteggioBadgeCompleto = document.getElementById("punteggioBadgeCompleto");
+    const punteggioBadgeSenzaTrasporti = document.getElementById(
+      "punteggioBadgeSenzaTrasporti"
+    );
+    const punteggioProgressCompleto = document.getElementById(
+      "punteggioProgressCompleto"
+    );
+    const punteggioProgressSenzaTrasporti = document.getElementById(
+      "punteggioProgressSenzaTrasporti"
+    );
     const messaggioTestuale = document.getElementById("messaggioTestuale");
 
     const scope1ValEl = document.getElementById("scope1Val");
@@ -203,19 +211,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const riepilogoDati = document.getElementById("riepilogoDati");
 
-    function aggiornaProgressBar(score) {
+    function aggiornaProgressBar(barEl, score) {
+      if (!barEl) return;
       const percent = (score / 10) * 100;
-      punteggioProgress.style.width = percent + "%";
-      punteggioProgress.textContent = score.toString().replace(".", ",") + " / 10";
+      barEl.style.width = percent + "%";
+      barEl.textContent = score.toString().replace(".", ",") + " / 10";
 
-      punteggioProgress.classList.remove("bg-low", "bg-medium", "bg-high");
+      barEl.classList.remove("bg-low", "bg-medium", "bg-high");
 
       if (score < 4) {
-        punteggioProgress.classList.add("bg-low");
+        barEl.classList.add("bg-low");
       } else if (score < 7) {
-        punteggioProgress.classList.add("bg-medium");
+        barEl.classList.add("bg-medium");
       } else {
-        punteggioProgress.classList.add("bg-high");
+        barEl.classList.add("bg-high");
       }
     }
 
@@ -257,8 +266,10 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // Verifica se tutti i valori numerici (escluso numeroStudenti) sono zero
-    const numericKeys = Object.keys(formData).filter((k) => k !== "numeroStudenti");
+    // Verifica se tutti i valori numerici (escluso numeroPersoneTotali) sono zero
+    const numericKeys = Object.keys(formData).filter(
+      (k) => k !== "numeroPersoneTotali"
+    );
     const tuttiZero = numericKeys.every((k) => {
       const v = parseFloat(formData[k]) || 0;
       return v === 0;
@@ -287,45 +298,72 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const risultati = window.EcoCalculator.calculateTotalEmissions(inputs);
-    const numeroStudenti = formData.numeroStudenti || 0;
+    const numeroPersone = formData.numeroPersoneTotali || 0;
 
     // Totale reale (usato per display e pro-capite)
     const totaleReale = risultati.total;
 
-    // Per il punteggio: CO2 trasporti divisa per studenti, poi sommata agli altri scope
-    const scope3TransportMedia = numeroStudenti > 0 ? risultati.scope3Transport / numeroStudenti : risultati.scope3Transport;
-    const totalePerScore = risultati.scope1 + risultati.scope2 + risultati.scope3Waste + scope3TransportMedia;
-    const score = window.EcoCalculator.calculateScoreFromEmissions(totalePerScore);
+    // Emissioni pro-capite (con trasporti) e senza trasporti
+    const perCapitaCompleto =
+      numeroPersone > 0 ? totaleReale / numeroPersone : totaleReale;
+    const totaleSenzaTrasporti =
+      risultati.scope1 + risultati.scope2 + risultati.scope3Waste;
+    const perCapitaSenzaTrasporti =
+      numeroPersone > 0
+        ? totaleSenzaTrasporti / numeroPersone
+        : totaleSenzaTrasporti;
+
+    // Punteggi a fasce rigide basati su emissioni pro-capite
+    const scoreCompleto =
+      window.EcoCalculator.calculateScoreFromPerCapita(perCapitaCompleto);
+    const scoreSenzaTrasporti =
+      window.EcoCalculator.calculateScoreFromPerCapita(perCapitaSenzaTrasporti);
 
     if (totaleEmissioniEl) {
       totaleEmissioniEl.textContent = Math.round(totaleReale);
     }
 
     if (emissioniProCapiteEl) {
-      if (numeroStudenti > 0) {
-        const proCapite = totaleReale / numeroStudenti;
-        emissioniProCapiteEl.textContent = Math.round(proCapite).toString();
+      if (numeroPersone > 0) {
+        emissioniProCapiteEl.textContent = Math.round(
+          perCapitaCompleto
+        ).toString();
       } else {
         emissioniProCapiteEl.textContent = "-";
       }
     }
 
-    if (punteggioBadge) {
-      punteggioBadge.textContent = score.toString().replace(".", ",") + " / 10";
+    if (punteggioBadgeCompleto) {
+      punteggioBadgeCompleto.textContent =
+        scoreCompleto.toString().replace(".", ",") + " / 10";
     }
-    if (punteggioProgress) {
-      aggiornaProgressBar(score);
+    if (punteggioBadgeSenzaTrasporti) {
+      punteggioBadgeSenzaTrasporti.textContent =
+        scoreSenzaTrasporti.toString().replace(".", ",") + " / 10";
     }
+
+    aggiornaProgressBar(punteggioProgressCompleto, scoreCompleto);
+    aggiornaProgressBar(punteggioProgressSenzaTrasporti, scoreSenzaTrasporti);
+
     if (messaggioTestuale) {
-      messaggioTestuale.textContent = messaggioDaPunteggio(score);
+      messaggioTestuale.textContent = messaggioDaPunteggio(scoreCompleto);
     }
 
     // Ripartizione per scope (percentuali sul totale reale)
     setScopeBar(scope1Bar, scope1ValEl, risultati.scope1, totaleReale);
     setScopeBar(scope2Bar, scope2ValEl, risultati.scope2, totaleReale);
-    setScopeBar(scope3WasteBar, scope3WasteValEl, risultati.scope3Waste, totaleReale);
-    // Per lo Scope 4 mostriamo la media per persona, coerente con l'etichetta in UI
-    setScopeBar(scope3TransportBar, scope3TransportValEl, scope3TransportMedia, totaleReale);
+    setScopeBar(
+      scope3WasteBar,
+      scope3WasteValEl,
+      risultati.scope3Waste,
+      totaleReale
+    );
+    setScopeBar(
+      scope3TransportBar,
+      scope3TransportValEl,
+      risultati.scope3Transport,
+      totaleReale
+    );
 
   })();
 });
