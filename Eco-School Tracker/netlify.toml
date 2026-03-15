@@ -1,0 +1,6 @@
+# Configurazione deploy Netlify per Eco-School Tracker
+# Il progetto è solo HTML/CSS/JS, nessun build.
+
+[build]
+  publish = "."
+  command = "echo 'No build required'"
