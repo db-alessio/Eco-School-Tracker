@@ -107,7 +107,7 @@
       scope4_vehicle_walk: "A piedi",
       scope4_vehicle_ev: "Macchine elettriche",
       results_no_data:
-        "Non sono stati trovati dati per questo calcolo oppure tutti i valori inseriti sono pari a zero. Per procedere, torna al questionario iniziale e inserisci o aggiorna i dati.",
+        "⚠️ Nessun dato inserito. Torna al questionario e inserisci almeno alcuni valori di consumi o spostamenti per calcolare l'impronta di carbonio della scuola. Anche stime approssimative sono utili!",
       results_overall_title: "Risultato complessivo",
       results_total_estimated: "Emissioni totali stimate:",
       results_benchmark_label: "Benchmark educativo di riferimento:",
@@ -236,7 +236,7 @@
       scope4_vehicle_walk: "On foot",
       scope4_vehicle_ev: "Electric cars",
       results_no_data:
-        "No data was found for this calculation, or all values are zero. To continue, go back to the questionnaire and enter or update the data.",
+        "⚠️ No data entered. Go back to the questionnaire and enter at least some consumption or transport data to calculate your school's carbon footprint. Even rough estimates are helpful!",
       results_overall_title: "Overall result",
       results_total_estimated: "Estimated total emissions:",
       results_benchmark_label: "Reference educational benchmark:",

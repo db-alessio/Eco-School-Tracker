@@ -233,3 +233,58 @@ input[type="number"] {
   }
 }
 
+/* Validazione input */
+.form-control.is-invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Miglioramento contrasto per i punteggi e badge */
+.badge {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.badge.text-bg-success-subtle {
+  background-color: #d1e7dd !important;
+  color: #0f5132 !important;
+  border: 1px solid #badbcc;
+}
+
+/* Scope bars con migliore contrasto */
+.scope-bar-fill {
+  min-width: 2px;
+  transition: width 0.3s ease;
+  border-radius: 0.25rem;
+}
+
+.scope-bar-fill.scope1 {
+  background-color: #2d6a4f;
+}
+
+.scope-bar-fill.scope2 {
+  background-color: #1e3a8a;
+}
+
+.scope-bar-fill.scope3-waste {
+  background-color: #5b21b6;
+}
+
+.scope-bar-fill.scope3-transport {
+  background-color: #0c4a6e;
+}
+
+/* Progress bar colori migliorati */
+.progress-bar.bg-low {
+  background-color: #dc3545 !important;
+}
+
+.progress-bar.bg-medium {
+  background-color: #ffc107 !important;
+  color: #000;
+}
+
+.progress-bar.bg-high {
+  background-color: #198754 !important;
+}
+

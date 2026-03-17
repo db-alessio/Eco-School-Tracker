@@ -11,6 +11,15 @@ document.addEventListener("DOMContentLoaded", function () {
     return value;
   }
 
+  // Formattazione numeri con separatori di migliaia
+  function formatNumberWithSeparators(num, decimals = 0) {
+    const rounded = Math.round(num * Math.pow(10, decimals)) / Math.pow(10, decimals);
+    return rounded.toLocaleString("it-IT", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
+  }
+
   // Attivazione tooltip Bootstrap (se disponibili)
   if (window.bootstrap && bootstrap.Tooltip) {
     const tooltipTriggerList = [].slice.call(
@@ -21,6 +30,50 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Validazione input con range specifici
+  const validationRules = {
+    numeroPersoneTotali: { min: 1, max: 10000, message: "Inserisci un numero tra 1 e 10000" },
+    giorniScuola: { min: 1, max: 220, message: "Inserisci un numero tra 1 e 220 giorni" },
+    gasMetanoMc: { min: 0, max: 100000, message: "Inserisci un valore realistico (0-100000)" },
+    altriCombustibiliKg: { min: 0, max: 100000, message: "Inserisci un valore realistico (0-100000)" },
+    energiaNonRinnovabiliKwh: { min: 0, max: 1000000, message: "Inserisci un valore realistico" },
+    energiaRinnovabiliKwh: { min: 0, max: 1000000, message: "Inserisci un valore realistico" },
+    energiaAutoprodottaKwh: { min: 0, max: 500000, message: "Inserisci un valore realistico" },
+    energiaAutoconsumataKwh: { min: 0, max: 500000, message: "Inserisci un valore realistico" },
+    personeAutobus: { min: 0, max: 10000, message: "Inserisci un numero realistico" },
+    kmAutobusAnnui: { min: 0, max: 100, message: "Inserisci km/giorno (0-100)" },
+    personeMacchina: { min: 0, max: 10000, message: "Inserisci un numero realistico" },
+    kmMacchinaAnnui: { min: 0, max: 100, message: "Inserisci km/giorno (0-100)" },
+    personePiedi: { min: 0, max: 10000, message: "Inserisci un numero realistico" },
+    kmPiediAnnui: { min: 0, max: 50, message: "Inserisci km/giorno (0-50)" },
+    personeElettrica: { min: 0, max: 10000, message: "Inserisci un numero realistico" },
+    kmElettricaAnnui: { min: 0, max: 100, message: "Inserisci km/giorno (0-100)" },
+  };
+
+  function validateInput(el) {
+    const id = el.id;
+    const rule = validationRules[id];
+    if (!rule) return true; // nessuna regola
+
+    const value = readNumberValue(id);
+    const isValid = value >= rule.min && value <= rule.max;
+
+    if (!isValid && value !== 0) {
+      el.classList.add("is-invalid");
+      if (!el.dataset.invalidShown) {
+        el.dataset.invalidShown = "true";
+        // Breve tooltip, poi rimuovere
+        setTimeout(() => {
+          el.classList.remove("is-invalid");
+          delete el.dataset.invalidShown;
+        }, 2000);
+      }
+    } else {
+      el.classList.remove("is-invalid");
+    }
+    return isValid;
+  }
+
   function messaggioDaPunteggio(score, risultati) {
     const SOGLIA = 0.35;
     const SOGLIA_COPPIA = 0.25;
@@ -29,6 +82,37 @@ document.addEventListener("DOMContentLoaded", function () {
         ? window.EcoI18n.getLang()
         : "it") || "it";
     const pick = (itText, enText) => (lang === "en" ? enText : itText);
+
+    // Funzione helper per calcolare risparmi potenziali
+    function getSuggestione(dominio, risultati) {
+      const AUTO_MEDIA = 0.351;
+      const AUTOBUS_MEDIA = 0.09;
+      const ENERGIA_MIX = 0.352;
+      const GAS_METANO = 2.02;
+
+      if (dominio === "trasporti" && risultati.scope3Transport > 0) {
+        const risparmioAuto = Math.round(risultati.scope3Transport * 0.3); // 30% di auto ridotto
+        return pick(
+          ` Riducendo i km in auto del 30%, potreste risparmiare circa ${formatNumberWithSeparators(risparmioAuto)} kg CO₂e/anno.`,
+          ` Reducing car kilometres by 30% could save approximately ${formatNumberWithSeparators(risparmioAuto)} kg CO₂e/year.`
+        );
+      }
+      if (dominio === "energia" && risultati.scope2 > 0) {
+        const risparmioEnergia = Math.round(risultati.scope2 * 0.2); // 20% di riduzione
+        return pick(
+          ` Riducendo i consumi energetici del 20%, potreste risparmiare circa ${formatNumberWithSeparators(risparmioEnergia)} kg CO₂e/anno.`,
+          ` Reducing energy use by 20% could save approximately ${formatNumberWithSeparators(risparmioEnergia)} kg CO₂e/year.`
+        );
+      }
+      if (dominio === "rifiuti" && risultati.scope3Waste > 0) {
+        const risparmioRifiuti = Math.round(risultati.scope3Waste * 0.4); // 40% riduzione indifferenziati
+        return pick(
+          ` Aumentando la differenziazione, potreste risparmiare circa ${formatNumberWithSeparators(risparmioRifiuti)} kg CO₂e/anno.`,
+          ` Improving recycling could save approximately ${formatNumberWithSeparators(risparmioRifiuti)} kg CO₂e/year.`
+        );
+      }
+      return "";
+    }
 
     let dominio = "generico";
     if (risultati && risultati.total > 0) {
@@ -245,6 +329,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const calcolaBtn = document.getElementById("calcolaBtn");
     if (!calcolaBtn) return; // non siamo su index.html
 
+    // Attacca validazione a tutti i campi
+    Object.keys(validationRules).forEach(function (fieldId) {
+      const el = document.getElementById(fieldId);
+      if (el) {
+        el.addEventListener("blur", function () {
+          validateInput(el);
+        });
+      }
+    });
+
     // Aggiornamento in tempo reale dei km × giorni × persone
     [
       "giorniScuola",
@@ -260,6 +354,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const el = document.getElementById(id);
       if (el) {
         el.addEventListener("input", function () {
+          validateInput(el); // Validazione anche durante l'input
           aggiornaDistanzeTotali();
           aggiornaProgressoSezioni();
         });
@@ -347,6 +442,12 @@ document.addEventListener("DOMContentLoaded", function () {
       barEl.style.width = percent + "%";
       barEl.textContent = score.toString().replace(".", ",") + " / 10";
 
+      // Aggiorna attributi ARIA
+      const progressContainer = barEl.closest('[role="progressbar"]');
+      if (progressContainer) {
+        progressContainer.setAttribute("aria-valuenow", Math.round(score).toString());
+      }
+
       barEl.classList.remove("bg-low", "bg-medium", "bg-high");
 
       if (score < 4) {
@@ -367,7 +468,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       const rawPercent = (value / total) * 100;
       const percent = Math.max(rawPercent, 2); // minimo 2% visivo se > 0
-      valueEl.textContent = Math.round(value); // mostra valore assoluto
+      valueEl.textContent = formatNumberWithSeparators(value, 0); // mostra valore assoluto con separatori
       barEl.style.width = percent + "%";
     }
 
@@ -465,14 +566,15 @@ document.addEventListener("DOMContentLoaded", function () {
       window.EcoCalculator.calculateScoreFromPerCapita(perCapitaSenzaTrasporti);
 
     if (totaleEmissioniEl) {
-      totaleEmissioniEl.textContent = Math.round(totaleReale);
+      totaleEmissioniEl.textContent = formatNumberWithSeparators(totaleReale, 0);
     }
 
     if (emissioniProCapiteEl) {
       if (numeroPersone > 0) {
-        emissioniProCapiteEl.textContent = Math.round(
-          perCapitaCompleto
-        ).toString();
+        emissioniProCapiteEl.textContent = formatNumberWithSeparators(
+          perCapitaCompleto,
+          0
+        );
       } else {
         emissioniProCapiteEl.textContent = "-";
       }
@@ -512,6 +614,13 @@ document.addEventListener("DOMContentLoaded", function () {
       risultati.scope3Transport,
       totaleReale
     );
+
+    // Ascolta cambi di lingua per aggiornare il messaggio
+    window.addEventListener("ecoSchoolLangChanged", function () {
+      if (messaggioTestuale) {
+        messaggioTestuale.textContent = messaggioDaPunteggio(scoreCompleto, risultati);
+      }
+    });
 
   })();
 });

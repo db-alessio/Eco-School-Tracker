@@ -146,5 +146,49 @@ function calculateScoreFromPerCapita(perCapitaKg) {
 window.EcoCalculator = {
   calculateTotalEmissions,
   calculateScoreFromPerCapita,
+  // Funzione per breakdown dettagliato di Scope 2
+  getScope2Breakdown: function(inputs) {
+    const energiaNonRinnovabiliKwh = inputs.energiaNonRinnovabiliKwh || 0;
+    const energiaRinnovabiliKwh = inputs.energiaRinnovabiliKwh || 0;
+    const energiaAutoprodottaKwh = inputs.energiaAutoprodottaKwh || 0;
+    const energiaAutoconsumataKwh = inputs.energiaAutoconsumataKwh || 0;
+
+    const emissioniNonRinnovabili = energiaNonRinnovabiliKwh * ENERGIA_MIX;
+    const emissioniRinnovabili = energiaRinnovabiliKwh * ENERGIA_RENEW;
+    const emissioniAutoprodotta = energiaAutoprodottaKwh * ENERGIA_AUTOPROD;
+    const emissioniAutoconsumata = energiaAutoconsumataKwh * ENERGIA_AUTOCONS;
+    
+    const totaleScope2 = emissioniNonRinnovabili + emissioniRinnovabili + emissioniAutoprodotta + emissioniAutoconsumata;
+    
+    return {
+      nonRinnovabili: { emissioni: emissioniNonRinnovabili, percentuale: totaleScope2 > 0 ? (emissioniNonRinnovabili / totaleScope2) * 100 : 0 },
+      rinnovabili: { emissioni: emissioniRinnovabili, percentuale: totaleScope2 > 0 ? (emissioniRinnovabili / totaleScope2) * 100 : 0 },
+      autoprodotta: { emissioni: emissioniAutoprodotta, percentuale: totaleScope2 > 0 ? (emissioniAutoprodotta / totaleScope2) * 100 : 0 },
+      autoconsumata: { emissioni: emissioniAutoconsumata, percentuale: totaleScope2 > 0 ? (emissioniAutoconsumata / totaleScope2) * 100 : 0 },
+      totale: totaleScope2
+    };
+  },
+  // Funzione per breakdown dettagliato di Scope 3 Trasporti
+  getScope3TransportBreakdown: function(inputs) {
+    const kmAutobus = inputs.kmAutobusAnnui || 0;
+    const kmMacchina = inputs.kmMacchinaAnnui || 0;
+    const kmPiedi = inputs.kmPiediAnnui || 0;
+    const kmElettrica = inputs.kmElettricaAnnui || 0;
+
+    const emissioniAutobus = kmAutobus * AUTOBUS_MEDIA;
+    const emissioniMacchina = kmMacchina * AUTO_MEDIA;
+    const emissioniPiedi = kmPiedi * A_PIEDI;
+    const emissioniElettrica = kmElettrica * AUTO_ELETTRICA;
+    
+    const totaleTransport = emissioniAutobus + emissioniMacchina + emissioniPiedi + emissioniElettrica;
+    
+    return {
+      autobus: { emissioni: emissioniAutobus, percentuale: totaleTransport > 0 ? (emissioniAutobus / totaleTransport) * 100 : 0 },
+      macchina: { emissioni: emissioniMacchina, percentuale: totaleTransport > 0 ? (emissioniMacchina / totaleTransport) * 100 : 0 },
+      piedi: { emissioni: emissioniPiedi, percentuale: totaleTransport > 0 ? (emissioniPiedi / totaleTransport) * 100 : 0 },
+      elettrica: { emissioni: emissioniElettrica, percentuale: totaleTransport > 0 ? (emissioniElettrica / totaleTransport) * 100 : 0 },
+      totale: totaleTransport
+    };
+  }
 };
 

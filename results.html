@@ -128,11 +128,12 @@
                   <span class="badge text-bg-success-subtle text-success" id="punteggioBadgeCompleto">- / 10</span>
                 </div>
 
-                <div class="progress" role="progressbar" data-i18n-aria-label="results_score_with_transport">
+                <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" data-i18n-aria-label="results_score_with_transport">
                   <div
                     id="punteggioProgressCompleto"
                     class="progress-bar"
                     style="width: 0%"
+                    aria-label="Punteggio complessivo"
                   ></div>
                 </div>
               </div>
@@ -143,11 +144,12 @@
                   <span class="badge text-bg-success-subtle text-success" id="punteggioBadgeSenzaTrasporti">- / 10</span>
                 </div>
 
-                <div class="progress progress-sm" role="progressbar" data-i18n-aria-label="results_score_without_transport">
+                <div class="progress progress-sm" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" data-i18n-aria-label="results_score_without_transport">
                   <div
                     id="punteggioProgressSenzaTrasporti"
                     class="progress-bar"
                     style="width: 0%"
+                    aria-label="Punteggio edificio e rifiuti"
                   ></div>
                 </div>
               </div>
