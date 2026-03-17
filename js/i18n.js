@@ -99,7 +99,7 @@
       scope4_car_people_placeholder: "Es. 259",
       scope4_car_km_placeholder: "Es. 8 km/giorno",
       scope4_walk_people_placeholder: "Es. 65",
-      scope4_walk_km_placeholder: "Es. 1,5 km/giorno",
+      scope4_walk_km_placeholder: "Es. 1.5 km/giorno",
       scope4_ev_people_placeholder: "Es. 22",
       scope4_ev_km_placeholder: "Es. 8 km/giorno",
       scope4_vehicle_bus: "Autobus",
@@ -174,15 +174,15 @@
       scope2_nonren_help:
         "Sum of all kWh purchased from suppliers that are not 100% renewable.",
       scope2_ren_label: "Electricity from renewable sources (kWh/year)",
-      scope2_ren_placeholder: "e.g. 20,664 kWh",
+      scope2_ren_placeholder: "e.g. 20.664 kWh",
       scope2_ren_help:
         "In this simplified model, this share produces no emissions (factor 0 kg CO<span class=\"subscript\">2</span>/kWh).",
       scope2_selfprod_label: "Self-produced electricity per year (kWh)",
-      scope2_selfprod_placeholder: "e.g. 45,743 kWh",
+      scope2_selfprod_placeholder: "e.g. 45.743 kWh",
       scope2_selfprod_help:
         "Electricity produced by the school's systems (e.g. rooftop solar).",
       scope2_selfcons_label: "Self-consumed electricity (kWh/year)",
-      scope2_selfcons_placeholder: "e.g. 66,407 kWh",
+      scope2_selfcons_placeholder: "e.g. 66.407 kWh",
       scope2_selfcons_help:
         "Considered renewable and zero-impact in this educational model.",
 
@@ -208,7 +208,7 @@
       scope3w_wood_help:
         "Wood scraps from, for example, small maintenance works.",
       scope3w_unsorted_label: "Unsorted waste (kg/year)",
-      scope3w_unsorted_placeholder: "e.g. 1,100 kg",
+      scope3w_unsorted_placeholder: "e.g. 1.100 kg",
       scope3w_unsorted_help:
         "Everything that isn’t separated for recycling (residual waste).",
 
