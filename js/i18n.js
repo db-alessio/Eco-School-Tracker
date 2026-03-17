@@ -132,8 +132,8 @@
       results_breakdown_title: "Ripartizione per Scope",
       results_breakdown_help:
         "La larghezza di ciascuna barra indica il peso relativo di ogni scope sul totale delle emissioni.",
-      results_scope2_details: "Dettagli Scope 2 (Energia)",
-      results_scope3transport_details: "Dettagli Scope 3 (Trasporti)",
+      results_scope2_details: "📊 Dettagli Scope 2 (Energia)",
+      results_scope3transport_details: "🚗 Dettagli Scope 3 (Trasporti)",
       results_back_btn: "Torna al questionario",
     },
     en: {
@@ -262,8 +262,10 @@
         "<strong>7–10</strong>: low impact, great practices already in place.",
       results_breakdown_title: "Breakdown by scope",
       results_breakdown_help:
-        "Each bar’s width shows the relative weight of each scope compared to total emissions.",      results_scope2_details: "Scope 2 details (Energy)",
-      results_scope3transport_details: "Scope 3 details (Transport)",      results_back_btn: "Back to questionnaire",
+        "Each bar's width shows the relative weight of each scope compared to total emissions.",
+      results_scope2_details: "📊 Scope 2 details (Energy)",
+      results_scope3transport_details: "🚗 Scope 3 details (Transport)",
+      results_back_btn: "Back to questionnaire",
     },
   };
 
