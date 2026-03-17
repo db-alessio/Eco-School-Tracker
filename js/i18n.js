@@ -102,6 +102,10 @@
       scope4_walk_km_placeholder: "Es. 1,5 km/giorno",
       scope4_ev_people_placeholder: "Es. 22",
       scope4_ev_km_placeholder: "Es. 8 km/giorno",
+      scope4_vehicle_bus: "Autobus",
+      scope4_vehicle_car: "Macchina",
+      scope4_vehicle_walk: "A piedi",
+      scope4_vehicle_ev: "Macchine elettriche",
       results_no_data:
         "Non sono stati trovati dati per questo calcolo oppure tutti i valori inseriti sono pari a zero. Per procedere, torna al questionario iniziale e inserisci o aggiorna i dati.",
       results_overall_title: "Risultato complessivo",
@@ -227,6 +231,10 @@
       scope4_walk_km_placeholder: "e.g. 1.5 km/day",
       scope4_ev_people_placeholder: "e.g. 22",
       scope4_ev_km_placeholder: "e.g. 8 km/day",
+      scope4_vehicle_bus: "Bus",
+      scope4_vehicle_car: "Car",
+      scope4_vehicle_walk: "On foot",
+      scope4_vehicle_ev: "Electric cars",
       results_no_data:
         "No data was found for this calculation, or all values are zero. To continue, go back to the questionnaire and enter or update the data.",
       results_overall_title: "Overall result",
@@ -315,6 +323,14 @@
       const value = dict[key];
       if (typeof value !== "string") return;
       el.setAttribute("aria-label", value);
+    });
+
+    document.querySelectorAll("[data-i18n-value]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-value");
+      if (!key) return;
+      const value = dict[key];
+      if (typeof value !== "string") return;
+      el.setAttribute("value", value);
     });
   }
 
