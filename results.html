@@ -240,6 +240,97 @@
           </div>
         </div>
 
+        <!-- Breakdown dettagliato Scope 2 -->
+        <div class="row g-4 mt-3">
+          <div class="col-lg-6">
+            <div class="card shadow-sm">
+              <div class="card-header bg-light border-bottom">
+                <h3 class="h6 mb-0">
+                  <button class="btn btn-link text-decoration-none fw-bold" 
+                          type="button" 
+                          data-bs-toggle="collapse" 
+                          data-bs-target="#scope2Detail"
+                          aria-expanded="false"
+                          aria-controls="scope2Detail">
+                    📊 <span data-i18n="results_scope2_details">Dettagli Scope 2 (Energia)</span>
+                  </button>
+                </h3>
+              </div>
+              <div class="collapse" id="scope2Detail">
+                <div class="card-body">
+                  <div class="small">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span>Non rinnovabili</span>
+                      <span><strong id="scope2NonRinVal">0%</strong></span>
+                    </div>
+                    <div class="progress mb-3" style="height: 8px;">
+                      <div id="scope2NonRinBar" class="progress-bar" style="width: 0%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span>Rinnovabili</span>
+                      <span><strong id="scope2RenVal">0%</strong></span>
+                    </div>
+                    <div class="progress mb-3" style="height: 8px;">
+                      <div id="scope2RenBar" class="progress-bar bg-success" style="width: 0%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span>Autoprodotta</span>
+                      <span><strong id="scope2AutoprodVal">0%</strong></span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                      <div id="scope2AutoprodBar" class="progress-bar bg-info" style="width: 0%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Breakdown dettagliato Scope 3 Trasporti -->
+          <div class="col-lg-6">
+            <div class="card shadow-sm">
+              <div class="card-header bg-light border-bottom">
+                <h3 class="h6 mb-0">
+                  <button class="btn btn-link text-decoration-none fw-bold" 
+                          type="button" 
+                          data-bs-toggle="collapse" 
+                          data-bs-target="#scope3TransportDetail"
+                          aria-expanded="false"
+                          aria-controls="scope3TransportDetail">
+                    🚗 <span data-i18n="results_scope3transport_details">Dettagli Scope 3 (Trasporti)</span>
+                  </button>
+                </h3>
+              </div>
+              <div class="collapse" id="scope3TransportDetail">
+                <div class="card-body">
+                  <div class="small">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span>Autobus</span>
+                      <span><strong id="scope3AutobusVal">0%</strong></span>
+                    </div>
+                    <div class="progress mb-3" style="height: 8px;">
+                      <div id="scope3AutobusBar" class="progress-bar bg-success" style="width: 0%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span>Macchina</span>
+                      <span><strong id="scope3MacchinaVal">0%</strong></span>
+                    </div>
+                    <div class="progress mb-3" style="height: 8px;">
+                      <div id="scope3MacchinaBar" class="progress-bar" style="width: 0%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span>Elettrica</span>
+                      <span><strong id="scope3ElettricaVal">0%</strong></span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                      <div id="scope3ElettricaBar" class="progress-bar bg-info" style="width: 0%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
 

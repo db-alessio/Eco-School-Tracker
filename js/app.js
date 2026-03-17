@@ -615,6 +615,30 @@ document.addEventListener("DOMContentLoaded", function () {
       totaleReale
     );
 
+    // Breakdown dettagliati Scope 2 e Scope 3 Trasporti
+    const scope2Detail = window.EcoCalculator.getScope2Breakdown(inputs);
+    const scope3TransportDetail = window.EcoCalculator.getScope3TransportBreakdown(inputs);
+
+    // Popola Scope 2 breakdown
+    document.getElementById("scope2NonRinVal").textContent = scope2Detail.nonRinnovabili.percentuale.toFixed(1) + "%";
+    document.getElementById("scope2NonRinBar").style.width = scope2Detail.nonRinnovabili.percentuale + "%";
+    
+    document.getElementById("scope2RenVal").textContent = scope2Detail.rinnovabili.percentuale.toFixed(1) + "%";
+    document.getElementById("scope2RenBar").style.width = scope2Detail.rinnovabili.percentuale + "%";
+    
+    document.getElementById("scope2AutoprodVal").textContent = (scope2Detail.autoprodotta.percentuale + scope2Detail.autoconsumata.percentuale).toFixed(1) + "%";
+    document.getElementById("scope2AutoprodBar").style.width = (scope2Detail.autoprodotta.percentuale + scope2Detail.autoconsumata.percentuale) + "%";
+
+    // Popola Scope 3 Trasporti breakdown
+    document.getElementById("scope3AutobusVal").textContent = scope3TransportDetail.autobus.percentuale.toFixed(1) + "%";
+    document.getElementById("scope3AutobusBar").style.width = scope3TransportDetail.autobus.percentuale + "%";
+    
+    document.getElementById("scope3MacchinaVal").textContent = scope3TransportDetail.macchina.percentuale.toFixed(1) + "%";
+    document.getElementById("scope3MacchinaBar").style.width = scope3TransportDetail.macchina.percentuale + "%";
+    
+    document.getElementById("scope3ElettricaVal").textContent = scope3TransportDetail.elettrica.percentuale.toFixed(1) + "%";
+    document.getElementById("scope3ElettricaBar").style.width = scope3TransportDetail.elettrica.percentuale + "%";
+
     // Ascolta cambi di lingua per aggiornare il messaggio
     window.addEventListener("ecoSchoolLangChanged", function () {
       if (messaggioTestuale) {
