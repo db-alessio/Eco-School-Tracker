@@ -24,6 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
   function messaggioDaPunteggio(score, risultati) {
     const SOGLIA = 0.35;
     const SOGLIA_COPPIA = 0.25;
+    const lang =
+      (window.EcoI18n && typeof window.EcoI18n.getLang === "function"
+        ? window.EcoI18n.getLang()
+        : "it") || "it";
+    const pick = (itText, enText) => (lang === "en" ? enText : itText);
 
     let dominio = "generico";
     if (risultati && risultati.total > 0) {
@@ -48,58 +53,112 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (score < 4) {
       if (dominio === "trasporti") {
-        return "Le emissioni risultano molto superiori alla media di riferimento. La parte più consistente viene dagli spostamenti: è il momento di ripensare come studenti e personale raggiungono la scuola. Ridurre i chilometri in auto, favorire mezzi pubblici, piedi o bici e il car pooling può fare una grande differenza.";
+        return pick(
+          "Le emissioni risultano molto superiori alla media di riferimento. La parte più consistente viene dagli spostamenti: è il momento di ripensare come studenti e personale raggiungono la scuola. Ridurre i chilometri in auto, favorire mezzi pubblici, piedi o bici e il car pooling può fare una grande differenza.",
+          "Emissions are well above the reference average. The largest share comes from commuting: it’s time to rethink how students and staff reach school. Cutting car kilometres and encouraging public transport, walking/cycling, and car pooling can make a big difference."
+        );
       }
       if (dominio === "energia") {
-        return "Le emissioni risultano molto superiori alla media di riferimento. Il peso maggiore viene da riscaldamento e consumi elettrici: ottimizzare gli orari di accensione, migliorare l'isolamento e ridurre gli sprechi di energia può fare una grande differenza.";
+        return pick(
+          "Le emissioni risultano molto superiori alla media di riferimento. Il peso maggiore viene da riscaldamento e consumi elettrici: ottimizzare gli orari di accensione, migliorare l'isolamento e ridurre gli sprechi di energia può fare una grande differenza.",
+          "Emissions are well above the reference average. The biggest share comes from heating and electricity use: optimising schedules, improving insulation, and reducing energy waste can make a big difference."
+        );
       }
       if (dominio === "rifiuti") {
-        return "Le emissioni risultano molto superiori alla media di riferimento. La gestione dei rifiuti pesa in modo consistente: aumentare la raccolta differenziata, ridurre gli imballaggi e favorire il riuso può fare una grande differenza.";
+        return pick(
+          "Le emissioni risultano molto superiori alla media di riferimento. La gestione dei rifiuti pesa in modo consistente: aumentare la raccolta differenziata, ridurre gli imballaggi e favorire il riuso può fare una grande differenza.",
+          "Emissions are well above the reference average. Waste management has a strong impact: improving recycling, reducing packaging, and encouraging reuse can make a big difference."
+        );
       }
       if (dominio === "emissioniDirette") {
-        return "Le emissioni risultano molto superiori alla media di riferimento. Il peso maggiore viene da riscaldamento a gas o altri combustibili: ottimizzare gli orari, migliorare l'isolamento e controllare le caldaie può fare una grande differenza.";
+        return pick(
+          "Le emissioni risultano molto superiori alla media di riferimento. Il peso maggiore viene da riscaldamento a gas o altri combustibili: ottimizzare gli orari, migliorare l'isolamento e controllare le caldaie può fare una grande differenza.",
+          "Emissions are well above the reference average. The biggest share comes from gas heating or other fuels: optimising schedules, improving insulation, and maintaining boilers can make a big difference."
+        );
       }
       if (dominio === "energiaRifiuti") {
-        return "Le emissioni risultano molto superiori alla media di riferimento. Energia e gestione dei rifiuti sono i settori che pesano di più: ottimizzare il riscaldamento, ridurre gli sprechi e aumentare la raccolta differenziata può fare una grande differenza.";
+        return pick(
+          "Le emissioni risultano molto superiori alla media di riferimento. Energia e gestione dei rifiuti sono i settori che pesano di più: ottimizzare il riscaldamento, ridurre gli sprechi e aumentare la raccolta differenziata può fare una grande differenza.",
+          "Emissions are well above the reference average. Energy use and waste management weigh the most: optimising heating, reducing waste, and improving recycling can make a big difference."
+        );
       }
-      return "Le emissioni risultano molto superiori alla media di riferimento. È il momento giusto per ripensare abitudini di trasporto, riscaldamento e gestione dei rifiuti: anche piccoli cambiamenti quotidiani possono fare una grande differenza.";
+      return pick(
+        "Le emissioni risultano molto superiori alla media di riferimento. È il momento giusto per ripensare abitudini di trasporto, riscaldamento e gestione dei rifiuti: anche piccoli cambiamenti quotidiani possono fare una grande differenza.",
+        "Emissions are well above the reference average. It’s a great time to rethink commuting, heating, and waste habits: even small daily changes can make a big difference."
+      );
     }
 
     if (score < 7) {
       if (dominio === "trasporti") {
-        return "La scuola è più o meno in linea con la media italiana. La parte più consistente delle emissioni viene dagli spostamenti: ridurre i chilometri in auto, favorire mezzi pubblici e car pooling può fare la differenza.";
+        return pick(
+          "La scuola è più o meno in linea con la media italiana. La parte più consistente delle emissioni viene dagli spostamenti: ridurre i chilometri in auto, favorire mezzi pubblici e car pooling può fare la differenza.",
+          "The school is roughly in line with the Italian average. The largest share comes from commuting: cutting car kilometres and promoting public transport and car pooling can make the difference."
+        );
       }
       if (dominio === "energia") {
-        return "La scuola è più o meno in linea con la media italiana. Le emissioni legate all'energia (riscaldamento ed elettricità) pesano molto: ottimizzare i consumi e gli orari di accensione può fare la differenza.";
+        return pick(
+          "La scuola è più o meno in linea con la media italiana. Le emissioni legate all'energia (riscaldamento ed elettricità) pesano molto: ottimizzare i consumi e gli orari di accensione può fare la differenza.",
+          "The school is roughly in line with the Italian average. Energy-related emissions (heating and electricity) weigh a lot: optimising consumption and schedules can make the difference."
+        );
       }
       if (dominio === "rifiuti") {
-        return "La scuola è più o meno in linea con la media italiana. Le emissioni legate ai rifiuti pesano molto: aumentare la differenziata e ridurre l'indifferenziato può fare la differenza.";
+        return pick(
+          "La scuola è più o meno in linea con la media italiana. Le emissioni legate ai rifiuti pesano molto: aumentare la differenziata e ridurre l'indifferenziato può fare la differenza.",
+          "The school is roughly in line with the Italian average. Waste-related emissions weigh a lot: increasing recycling and reducing unsorted waste can make the difference."
+        );
       }
       if (dominio === "emissioniDirette") {
-        return "La scuola è più o meno in linea con la media italiana. Le emissioni da riscaldamento (gas, combustibili) pesano molto: ottimizzare orari e temperature può fare la differenza.";
+        return pick(
+          "La scuola è più o meno in linea con la media italiana. Le emissioni da riscaldamento (gas, combustibili) pesano molto: ottimizzare orari e temperature può fare la differenza.",
+          "The school is roughly in line with the Italian average. Heating emissions (gas, fuels) weigh a lot: optimising schedules and temperatures can make the difference."
+        );
       }
       if (dominio === "energiaRifiuti") {
-        return "La scuola è più o meno in linea con la media italiana. Energia e gestione dei rifiuti sono i settori su cui agire: ottimizzare il riscaldamento, ridurre gli sprechi e aumentare la raccolta differenziata può fare la differenza.";
+        return pick(
+          "La scuola è più o meno in linea con la media italiana. Energia e gestione dei rifiuti sono i settori su cui agire: ottimizzare il riscaldamento, ridurre gli sprechi e aumentare la raccolta differenziata può fare la differenza.",
+          "The school is roughly in line with the Italian average. Energy use and waste are the key areas to improve: optimising heating, reducing waste, and improving recycling can make the difference."
+        );
       }
-      return "La scuola è più o meno in linea con la media italiana. Ci sono già alcune buone abitudini, ma restano ampi margini di miglioramento: ridurre i chilometri in auto, ottimizzare il riscaldamento e aumentare la raccolta differenziata può fare la differenza.";
+      return pick(
+        "La scuola è più o meno in linea con la media italiana. Ci sono già alcune buone abitudini, ma restano ampi margini di miglioramento: ridurre i chilometri in auto, ottimizzare il riscaldamento e aumentare la raccolta differenziata può fare la differenza.",
+        "The school is roughly in line with the Italian average. Some good habits are already in place, but there’s plenty of room to improve: cut car kilometres, optimise heating, and improve recycling."
+      );
     }
 
     if (dominio === "trasporti") {
-      return "Ottimo! Le emissioni risultano inferiori alla media di riferimento. Continuate a privilegiare spostamenti sostenibili e a incoraggiare mezzi pubblici e car pooling: l'esempio della scuola può ispirare le famiglie.";
+      return pick(
+        "Ottimo! Le emissioni risultano inferiori alla media di riferimento. Continuate a privilegiare spostamenti sostenibili e a incoraggiare mezzi pubblici e car pooling: l'esempio della scuola può ispirare le famiglie.",
+        "Great job! Emissions are below the reference average. Keep prioritising sustainable commuting and promoting public transport and car pooling: the school’s example can inspire families."
+      );
     }
     if (dominio === "energia") {
-      return "Ottimo! Le emissioni risultano inferiori alla media di riferimento. Le buone pratiche su riscaldamento ed energia stanno funzionando: continuate a condividerle con studenti e famiglie.";
+      return pick(
+        "Ottimo! Le emissioni risultano inferiori alla media di riferimento. Le buone pratiche su riscaldamento ed energia stanno funzionando: continuate a condividerle con studenti e famiglie.",
+        "Great job! Emissions are below the reference average. Good practices around heating and energy are working: keep sharing them with students and families."
+      );
     }
     if (dominio === "rifiuti") {
-      return "Ottimo! Le emissioni risultano inferiori alla media di riferimento. La gestione dei rifiuti e la differenziata stanno funzionando: continuate a condividerle con studenti e famiglie.";
+      return pick(
+        "Ottimo! Le emissioni risultano inferiori alla media di riferimento. La gestione dei rifiuti e la differenziata stanno funzionando: continuate a condividerle con studenti e famiglie.",
+        "Great job! Emissions are below the reference average. Waste management and recycling are working well: keep sharing these habits with students and families."
+      );
     }
     if (dominio === "emissioniDirette") {
-      return "Ottimo! Le emissioni risultano inferiori alla media di riferimento. Le buone pratiche su riscaldamento e combustibili stanno funzionando: continuate a condividerle con studenti e famiglie.";
+      return pick(
+        "Ottimo! Le emissioni risultano inferiori alla media di riferimento. Le buone pratiche su riscaldamento e combustibili stanno funzionando: continuate a condividerle con studenti e famiglie.",
+        "Great job! Emissions are below the reference average. Good practices around heating and fuels are working: keep sharing them with students and families."
+      );
     }
     if (dominio === "energiaRifiuti") {
-      return "Ottimo! Le emissioni risultano inferiori alla media di riferimento. Le buone pratiche su energia e rifiuti stanno funzionando: continuate a condividerle con studenti e famiglie.";
+      return pick(
+        "Ottimo! Le emissioni risultano inferiori alla media di riferimento. Le buone pratiche su energia e rifiuti stanno funzionando: continuate a condividerle con studenti e famiglie.",
+        "Great job! Emissions are below the reference average. Good practices around energy and waste are working: keep sharing them with students and families."
+      );
     }
-    return "Ottimo! Le emissioni risultano inferiori alla media di riferimento. Continuare e condividere le buone pratiche è fondamentale: l'esempio di questa scuola può ispirare famiglie, persone e altre realtà educative.";
+    return pick(
+      "Ottimo! Le emissioni risultano inferiori alla media di riferimento. Continuare e condividere le buone pratiche è fondamentale: l'esempio di questa scuola può ispirare famiglie, persone e altre realtà educative.",
+      "Great job! Emissions are below the reference average. Keeping and sharing good practices is key: this school’s example can inspire families and other educational communities."
+    );
   }
 
   function aggiornaDistanzeTotali() {

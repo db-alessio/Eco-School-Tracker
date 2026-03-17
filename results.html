@@ -4,8 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Eco-School Tracker – Risultati</title>
-  <link rel="icon" type="image/png" href="layout/favicon.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="layout/favicon.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="Layout/favicon.png?v=1" sizes="32x32" />
+  <link rel="icon" type="image/png" href="Layout/favicon.png?v=1" sizes="16x16" />
+  <link rel="icon" type="image/png" href="Layout/favicon.png?v=1" sizes="48x48" />
+  <link rel="apple-touch-icon" href="Layout/favicon.png?v=1" sizes="180x180" />
+  <link rel="icon" type="image/png" href="Layout/favicon.png?v=1" sizes="192x192" />
 
   <!-- Bootstrap CSS -->
   <link
@@ -15,24 +18,65 @@
     crossorigin="anonymous"
   />
 
+  <!-- Google Fonts -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap"
+  />
+
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header class="py-4 mb-4 border-bottom bg-light">
     <div class="container">
       <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
-        <div>
-          <h1 class="h3 mb-1 text-success fw-bold">Eco-School Tracker</h1>
-          <p class="mb-0 text-muted">
-            Risultati del calcolo dell’impronta di carbonio della scuola.
-          </p>
+        <div class="d-flex align-items-center gap-3">
+          <img
+            src="Layout/favicon.png?v=1"
+            alt="Eco-School Tracker"
+            class="app-logo"
+            width="72"
+            height="72"
+            loading="eager"
+            decoding="async"
+          />
+          <div>
+            <h1 class="h3 mb-1 text-success fw-bold app-title">Eco-School Tracker</h1>
+            <p class="mb-0 text-muted" data-i18n="header_subtitle_results">
+              Risultati del calcolo dell’impronta di carbonio della scuola.
+            </p>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-md-end gap-2">
+          <div class="btn-group lang-switch" role="group" aria-label="Selezione lingua">
+            <button
+              type="button"
+              class="btn btn-lang"
+              id="langItBtn"
+              data-lang="it"
+              aria-label="Italiano"
+              title="Italiano"
+            >
+              🇮🇹 <span class="lang-label">Italiano</span>
+            </button>
+            <button
+              type="button"
+              class="btn btn-lang"
+              id="langEnBtn"
+              data-lang="en"
+              aria-label="English"
+              title="English"
+            >
+              🇬🇧 <span class="lang-label">English</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </header>
 
   <main class="container mb-5" id="resultsRoot">
-    <section id="noDataAlert" class="alert alert-warning d-none" role="alert">
+    <section id="noDataAlert" class="alert alert-warning d-none" role="alert" data-i18n="results_no_data">
       Non sono stati trovati dati per questo calcolo oppure tutti i valori inseriti sono pari a zero.
       Per procedere, torna al questionario iniziale e inserisci o aggiorna i dati.
     </section>
@@ -43,40 +87,48 @@
         <div class="col-lg-6">
           <div class="card shadow-sm h-100">
             <div class="card-body">
-              <h2 class="h5 card-title mb-3">Risultato complessivo</h2>
+              <h2 class="h5 card-title mb-3" data-i18n="results_overall_title">Risultato complessivo</h2>
               <p class="mb-1">
-                Emissioni totali stimate:
-                <strong><span id="totaleEmissioni">0</span> kg CO<span class="subscript">2</span>e/anno</strong>
+                <span data-i18n="results_total_estimated">Emissioni totali stimate:</span>
+                <strong>
+                  <span id="totaleEmissioni">0</span>
+                  <span data-i18n-html="unit_kg_co2e_year">kg CO<span class="subscript">2</span>e/anno</span>
+                </strong>
               </p>
               <p class="mb-1">
-                Benchmark educativo di riferimento:
-                <strong>scala 1–10 basata sulle emissioni pro-capite</strong>
-                (kg CO<span class="subscript">2</span>e/anno per persona). Una scuola “nella media” si colloca intorno a
-                351–425 kg pro-capite (voto 6).
+                <span data-i18n="results_benchmark_label">Benchmark educativo di riferimento:</span>
+                <span data-i18n-html="results_benchmark_text">
+                  <strong>scala 1–10 basata sulle emissioni pro-capite</strong>
+                  (kg CO<span class="subscript">2</span>e/anno per persona). Una scuola “nella media” si colloca intorno a
+                  351–425 kg pro-capite (voto 6).
+                </span>
               </p>
               <p class="mb-3">
-                Emissioni pro-capite (inclusi i trasporti):
-                <strong><span id="emissioniProCapite">-</span> kg CO<span class="subscript">2</span>e/anno per persona</strong>
+                <span data-i18n="results_per_capita_label">Emissioni pro-capite (inclusi i trasporti):</span>
+                <strong>
+                  <span id="emissioniProCapite">-</span>
+                  <span data-i18n-html="unit_kg_co2e_year_person">kg CO<span class="subscript">2</span>e/anno per persona</span>
+                </strong>
               </p>
 
               <div class="d-flex flex-nowrap justify-content-center align-items-center gap-4 my-3">
                 <div class="text-center">
-                  <div class="small text-muted mb-1">Punteggio complessivo (con trasporti)</div>
+                  <div class="small text-muted mb-1" data-i18n="results_score_with_transport">Punteggio complessivo (con trasporti)</div>
                   <span id="facciaFeedback" style="font-size: 4rem;"></span>
                 </div>
                 <div class="text-center">
-                  <div class="small text-muted mb-1">Punteggio edificio &amp; rifiuti (senza trasporti)</div>
+                  <div class="small text-muted mb-1" data-i18n="results_score_without_transport">Punteggio edificio &amp; rifiuti (senza trasporti)</div>
                   <span id="facciaFeedbackSenzaTrasporti" style="font-size: 4rem;"></span>
                 </div>
               </div>
 
               <div class="mb-3">
                 <div class="d-flex align-items-center justify-content-between mb-1">
-                  <span class="fw-semibold">Punteggio complessivo (con trasporti)</span>
+                  <span class="fw-semibold" data-i18n="results_score_with_transport">Punteggio complessivo (con trasporti)</span>
                   <span class="badge text-bg-success-subtle text-success" id="punteggioBadgeCompleto">- / 10</span>
                 </div>
 
-                <div class="progress" role="progressbar" aria-label="Punteggio complessivo (con trasporti)">
+                <div class="progress" role="progressbar" data-i18n-aria-label="results_score_with_transport">
                   <div
                     id="punteggioProgressCompleto"
                     class="progress-bar"
@@ -87,11 +139,11 @@
 
               <div>
                 <div class="d-flex align-items-center justify-content-between mb-1">
-                  <span class="fw-semibold">Punteggio edificio &amp; rifiuti (senza trasporti)</span>
+                  <span class="fw-semibold" data-i18n="results_score_without_transport">Punteggio edificio &amp; rifiuti (senza trasporti)</span>
                   <span class="badge text-bg-success-subtle text-success" id="punteggioBadgeSenzaTrasporti">- / 10</span>
                 </div>
 
-                <div class="progress progress-sm" role="progressbar" aria-label="Punteggio edificio e rifiuti (senza trasporti)">
+                <div class="progress progress-sm" role="progressbar" data-i18n-aria-label="results_score_without_transport">
                   <div
                     id="punteggioProgressSenzaTrasporti"
                     class="progress-bar"
@@ -107,14 +159,14 @@
         <div class="col-lg-6">
           <div class="card shadow-sm h-100">
             <div class="card-body d-flex flex-column">
-              <h2 class="h5 card-title mb-3">Interpretazione del punteggio</h2>
-              <p id="messaggioTestuale" class="mb-3">
+              <h2 class="h5 card-title mb-3" data-i18n="results_interpret_title">Interpretazione del punteggio</h2>
+              <p id="messaggioTestuale" class="mb-3" data-i18n="results_interpret_placeholder">
                 I risultati verranno interpretati qui in base al punteggio complessivo.
               </p>
               <ul class="small text-muted mb-0">
-                <li><strong>1–3</strong>: impatto molto alto rispetto alla media.</li>
-                <li><strong>4–6</strong>: in linea con la media, ci sono margini di miglioramento.</li>
-                <li><strong>7–10</strong>: impatto contenuto, ottime pratiche già in atto.</li>
+                <li data-i18n-html="results_legend_1"><strong>1–3</strong>: impatto molto alto rispetto alla media.</li>
+                <li data-i18n-html="results_legend_2"><strong>4–6</strong>: in linea con la media, ci sono margini di miglioramento.</li>
+                <li data-i18n-html="results_legend_3"><strong>7–10</strong>: impatto contenuto, ottime pratiche già in atto.</li>
               </ul>
             </div>
           </div>
@@ -126,16 +178,17 @@
         <div class="col-lg-12">
           <div class="card shadow-sm h-100">
             <div class="card-body">
-              <h2 class="h5 card-title mb-3">Ripartizione per Scope</h2>
-              <p class="small text-muted">
+              <h2 class="h5 card-title mb-3" data-i18n="results_breakdown_title">Ripartizione per Scope</h2>
+              <p class="small text-muted" data-i18n="results_breakdown_help">
                 La larghezza di ciascuna barra indica il peso relativo di ogni scope sul totale delle emissioni.
               </p>
 
               <div class="scope-bar-row">
                 <div class="d-flex justify-content-between align-items-center mb-1">
-                  <span>Scope 1 – Emissioni dirette</span>
+                  <span data-i18n="scope1_title">Scope 1 – Emissioni dirette</span>
                   <span class="fw-semibold">
-                    <span id="scope1Val">0</span> kg CO<span class="subscript">2</span>e/anno
+                    <span id="scope1Val">0</span>
+                    <span data-i18n-html="unit_kg_co2e_year">kg CO<span class="subscript">2</span>e/anno</span>
                   </span>
                 </div>
                 <div class="scope-bar-track">
@@ -145,9 +198,10 @@
 
               <div class="scope-bar-row">
                 <div class="d-flex justify-content-between align-items-center mb-1">
-                  <span>Scope 2 – Energia</span>
+                  <span data-i18n="scope2_title">Scope 2 – Energia</span>
                   <span class="fw-semibold">
-                    <span id="scope2Val">0</span> kg CO<span class="subscript">2</span>e/anno
+                    <span id="scope2Val">0</span>
+                    <span data-i18n-html="unit_kg_co2e_year">kg CO<span class="subscript">2</span>e/anno</span>
                   </span>
                 </div>
                 <div class="scope-bar-track">
@@ -157,9 +211,10 @@
 
               <div class="scope-bar-row">
                 <div class="d-flex justify-content-between align-items-center mb-1">
-                  <span>Scope 3 – Rifiuti</span>
+                  <span data-i18n="scope3w_title">Scope 3 – Rifiuti</span>
                   <span class="fw-semibold">
-                    <span id="scope3WasteVal">0</span> kg CO<span class="subscript">2</span>e/anno
+                    <span id="scope3WasteVal">0</span>
+                    <span data-i18n-html="unit_kg_co2e_year">kg CO<span class="subscript">2</span>e/anno</span>
                   </span>
                 </div>
                 <div class="scope-bar-track">
@@ -169,9 +224,10 @@
 
               <div class="scope-bar-row">
                 <div class="d-flex justify-content-between align-items-center mb-1">
-                  <span>Scope 3 – Trasporti</span>
+                  <span data-i18n="scope4_title">Scope 3 – Trasporti</span>
                   <span class="fw-semibold">
-                    <span id="scope3TransportVal">0</span> kg CO<span class="subscript">2</span>e/anno
+                    <span id="scope3TransportVal">0</span>
+                    <span data-i18n-html="unit_kg_co2e_year">kg CO<span class="subscript">2</span>e/anno</span>
                   </span>
                 </div>
                 <div class="scope-bar-track">
@@ -187,7 +243,7 @@
 
       <section class="mt-4 mb-1 text-center">
         <a href="index.html" class="btn btn-success btn-lg px-4">
-          Torna al questionario
+          <span data-i18n="results_back_btn">Torna al questionario</span>
         </a>
       </section>
     </section>
@@ -201,6 +257,7 @@
   ></script>
 
   <script src="js/calculator.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

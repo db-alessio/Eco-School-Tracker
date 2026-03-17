@@ -4,8 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Eco-School Tracker</title>
-  <link rel="icon" type="image/png" href="layout/favicon.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="layout/favicon.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="Layout/favicon.png?v=1" sizes="32x32" />
+  <link rel="icon" type="image/png" href="Layout/favicon.png?v=1" sizes="16x16" />
+  <link rel="icon" type="image/png" href="Layout/favicon.png?v=1" sizes="48x48" />
+  <link rel="apple-touch-icon" href="Layout/favicon.png?v=1" sizes="180x180" />
+  <link rel="icon" type="image/png" href="Layout/favicon.png?v=1" sizes="192x192" />
 
   <!-- Bootstrap CSS -->
   <link
@@ -27,11 +30,46 @@
   <header class="py-4 mb-4 border-bottom bg-light">
     <div class="container">
       <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
-        <div>
-          <h1 class="h3 mb-1 text-success fw-bold app-title">Eco-School Tracker</h1>
-          <p class="mb-0 text-muted">
-            Uno strumento semplice per il calcolo dell'impronta di carbonio.
-          </p>
+        <div class="d-flex align-items-center gap-3">
+          <img
+            src="Layout/favicon.png?v=1"
+            alt="Eco-School Tracker"
+            class="app-logo"
+            width="72"
+            height="72"
+            loading="eager"
+            decoding="async"
+          />
+          <div>
+            <h1 class="h3 mb-1 text-success fw-bold app-title">Eco-School Tracker</h1>
+            <p class="mb-0 text-muted" data-i18n="header_subtitle_index">
+              Uno strumento semplice per il calcolo dell'impronta di carbonio.
+            </p>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-md-end gap-2">
+          <div class="btn-group lang-switch" role="group" aria-label="Selezione lingua">
+            <button
+              type="button"
+              class="btn btn-lang"
+              id="langItBtn"
+              data-lang="it"
+              aria-label="Italiano"
+              title="Italiano"
+            >
+              🇮🇹 <span class="lang-label">Italiano</span>
+            </button>
+            <button
+              type="button"
+              class="btn btn-lang"
+              id="langEnBtn"
+              data-lang="en"
+              aria-label="English"
+              title="English"
+            >
+              🇬🇧 <span class="lang-label">English</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -41,12 +79,12 @@
     <section class="mb-4">
       <div class="row g-4">
         <div class="col-lg-8">
-          <p>
+          <p data-i18n-html="index_intro">
             Compila i dati nelle quattro sezioni qui sotto per stimare le emissioni annue di CO<span class="subscript">2</span>
             equivalente della tua scuola. I testi sono pensati per utenti non esperti: inserisci valori anche approssimativi.
           </p>
           <div class="mt-3">
-            <label for="numeroPersoneTotali" class="form-label fw-semibold">
+            <label for="numeroPersoneTotali" class="form-label fw-semibold" data-i18n="index_people_label">
               Numero totale di persone nella scuola
             </label>
             <input
@@ -55,20 +93,21 @@
               class="form-control"
               id="numeroPersoneTotali"
               placeholder="Es. 432"
+              data-i18n-placeholder="index_people_placeholder"
             />
-            <div class="form-text">
+            <div class="form-text" data-i18n-html="index_people_help">
               Includi sia studenti sia personale (docenti, ATA, ecc.). Questo valore verrà usato per calcolare il risultato pro-capite (CO<span class="subscript">2</span>e per persona).
             </div>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="p-3 border rounded-3 small" style="background-color: #fff3cd; border-color: #ffecb5 !important; color: #664d03;">
-            <strong>Come funziona?</strong>
+            <strong data-i18n="index_how_title">Come funziona?</strong>
             <ul class="mb-0 ps-3">
-              <li>Inserisci i consumi e gli spostamenti.</li>
-              <li>Indica il numero totale di persone.</li>
-              <li>Clicca su <strong>Calcola impronta</strong>.</li>
-              <li>Guarda il punteggio, il risultato totale e quello pro-capite.</li>
+              <li data-i18n="index_how_1">Inserisci i consumi e gli spostamenti.</li>
+              <li data-i18n="index_how_2">Indica il numero totale di persone.</li>
+              <li data-i18n="index_how_3">Clicca su Calcola impronta.</li>
+              <li data-i18n="index_how_4">Guarda il punteggio, il risultato totale e quello pro-capite.</li>
             </ul>
           </div>
         </div>
@@ -89,7 +128,7 @@
               aria-expanded="true"
               aria-controls="collapseScope1"
             >
-              Scope 1 – Emissioni dirette
+              <span data-i18n="scope1_title">Scope 1 – Emissioni dirette</span>
             </button>
           </h2>
           <div
@@ -99,12 +138,12 @@
             data-bs-parent="#scopeAccordion"
           >
             <div class="accordion-body">
-              <p class="small text-muted">
+              <p class="small text-muted" data-i18n="scope1_desc">
                 Emissioni generate direttamente, ad esempio dal gas metano usato per il riscaldamento o da altri combustibili.
               </p>
               <div class="row g-3">
                 <div class="col-md-6">
-                  <label for="gasMetanoMc" class="form-label">
+                  <label for="gasMetanoMc" class="form-label" data-i18n-html="scope1_gas_label">
                     Gas metano per riscaldamento (m<span class="superscript">3</span> / anno)
                   </label>
                   <input
@@ -113,13 +152,14 @@
                     class="form-control"
                     id="gasMetanoMc"
                     placeholder="Es. 0 m³"
+                    data-i18n-placeholder="scope1_gas_placeholder"
                   />
-                  <div class="form-text">
+                  <div class="form-text" data-i18n="scope1_gas_help">
                     Se non conosci il dato esatto, inserisci una stima complessiva per l’edificio.
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label for="altriCombustibiliKg" class="form-label">
+                  <label for="altriCombustibiliKg" class="form-label" data-i18n="scope1_other_label">
                     Altri combustibili (kg / anno)
                   </label>
                   <input
@@ -128,8 +168,9 @@
                     class="form-control"
                     id="altriCombustibiliKg"
                     placeholder="Es. 0 kg"
+                    data-i18n-placeholder="scope1_other_placeholder"
                   />
-                  <div class="form-text">
+                  <div class="form-text" data-i18n="scope1_other_help">
                     Includi, ad esempio, pellet, gasolio, GPL o altri combustibili solidi/liquidi.
                   </div>
                 </div>
@@ -149,7 +190,7 @@
               aria-expanded="false"
               aria-controls="collapseScope2"
             >
-              Scope 2 – Energia
+              <span data-i18n="scope2_title">Scope 2 – Energia</span>
             </button>
           </h2>
           <div
@@ -159,12 +200,12 @@
             data-bs-parent="#scopeAccordion"
           >
             <div class="accordion-body">
-              <p class="small text-muted">
+              <p class="small text-muted" data-i18n="scope2_desc">
                 Emissioni indirette legate all’energia elettrica acquistata e utilizzata durante l’anno scolastico.
               </p>
               <div class="row g-3">
                 <div class="col-md-6">
-                  <label for="energiaNonRinnovabiliKwh" class="form-label">
+                  <label for="energiaNonRinnovabiliKwh" class="form-label" data-i18n="scope2_nonren_label">
                     Energia elettrica da fonti non rinnovabili (kWh/anno)
                   </label>
                   <input
@@ -173,13 +214,14 @@
                     class="form-control"
                     id="energiaNonRinnovabiliKwh"
                     placeholder="Es. 0 kWh"
+                    data-i18n-placeholder="scope2_nonren_placeholder"
                   />
-                  <div class="form-text">
+                  <div class="form-text" data-i18n="scope2_nonren_help">
                     Somma di tutti i kWh acquistati da fornitori con mix non 100% rinnovabile.
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label for="energiaRinnovabiliKwh" class="form-label">
+                  <label for="energiaRinnovabiliKwh" class="form-label" data-i18n="scope2_ren_label">
                     Energia elettrica da fonti rinnovabili (kWh/anno)
                   </label>
                   <input
@@ -188,13 +230,14 @@
                     class="form-control"
                     id="energiaRinnovabiliKwh"
                     placeholder="Es. 20.664 kWh"
+                    data-i18n-placeholder="scope2_ren_placeholder"
                   />
-                  <div class="form-text">
+                  <div class="form-text" data-i18n-html="scope2_ren_help">
                     Nel modello semplificato questa quota non genera emissioni (fattore 0 kg CO<span class="subscript">2</span>/kWh).
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label for="energiaAutoprodottaKwh" class="form-label">
+                  <label for="energiaAutoprodottaKwh" class="form-label" data-i18n="scope2_selfprod_label">
                     Energia elettrica autoprodotta annuale (kWh)
                   </label>
                   <input
@@ -203,13 +246,14 @@
                     class="form-control"
                     id="energiaAutoprodottaKwh"
                     placeholder="Es. 45.743 kWh"
+                    data-i18n-placeholder="scope2_selfprod_placeholder"
                   />
-                  <div class="form-text">
+                  <div class="form-text" data-i18n="scope2_selfprod_help">
                     Energia prodotta da impianti della scuola (es. fotovoltaico sul tetto).
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label for="energiaAutoconsumataKwh" class="form-label">
+                  <label for="energiaAutoconsumataKwh" class="form-label" data-i18n="scope2_selfcons_label">
                     Energia elettrica autoconsumata (kWh/anno)
                   </label>
                   <input
@@ -218,8 +262,9 @@
                     class="form-control"
                     id="energiaAutoconsumataKwh"
                     placeholder="Es. 66.407 kWh"
+                    data-i18n-placeholder="scope2_selfcons_placeholder"
                   />
-                  <div class="form-text">
+                  <div class="form-text" data-i18n="scope2_selfcons_help">
                     Considerata rinnovabile e a impatto nullo nel modello educativo di questa app.
                   </div>
                 </div>
@@ -239,7 +284,7 @@
               aria-expanded="false"
               aria-controls="collapseScope3Waste"
             >
-              Scope 3 – Rifiuti
+              <span data-i18n="scope3w_title">Scope 3 – Rifiuti</span>
             </button>
           </h2>
           <div
@@ -249,76 +294,82 @@
             data-bs-parent="#scopeAccordion"
           >
             <div class="accordion-body">
-              <p class="small text-muted mb-2">
+              <p class="small text-muted mb-2" data-i18n="scope3w_desc">
                 Inserisci una stima della quantità annua per ciascuna tipologia di rifiuto prodotto dalla scuola.
               </p>
-              <p class="small fw-semibold mb-2">Tipologia di rifiuti prodotti e quantità annua (kg)</p>
+              <p class="small fw-semibold mb-2" data-i18n="scope3w_table_title">Tipologia di rifiuti prodotti e quantità annua (kg)</p>
               <div class="row g-3">
                 <div class="col-md-6">
-                  <label for="rifiutiPlasticaKg" class="form-label">Plastica (kg/anno)</label>
+                  <label for="rifiutiPlasticaKg" class="form-label" data-i18n="scope3w_plastic_label">Plastica (kg/anno)</label>
                   <input
                     type="number"
                     min="0"
                     class="form-control"
                     id="rifiutiPlasticaKg"
                     placeholder="Es. 420 kg"
+                    data-i18n-placeholder="scope3w_plastic_placeholder"
                   />
-                  <div class="form-text">Bottiglie, imballaggi e altri rifiuti di plastica.</div>
+                  <div class="form-text" data-i18n="scope3w_plastic_help">Bottiglie, imballaggi e altri rifiuti di plastica.</div>
                 </div>
                 <div class="col-md-6">
-                  <label for="rifiutiCartaKg" class="form-label">Carta (kg/anno)</label>
+                  <label for="rifiutiCartaKg" class="form-label" data-i18n="scope3w_paper_label">Carta (kg/anno)</label>
                   <input
                     type="number"
                     min="0"
                     class="form-control"
                     id="rifiutiCartaKg"
                     placeholder="Es. 480 kg"
+                    data-i18n-placeholder="scope3w_paper_placeholder"
                   />
-                  <div class="form-text">Carta e cartone prodotti in un anno (esclusi archivi).</div>
+                  <div class="form-text" data-i18n="scope3w_paper_help">Carta e cartone prodotti in un anno (esclusi archivi).</div>
                 </div>
                 <div class="col-md-6">
-                  <label for="rifiutiVetroKg" class="form-label">Vetro (kg/anno)</label>
+                  <label for="rifiutiVetroKg" class="form-label" data-i18n="scope3w_glass_label">Vetro (kg/anno)</label>
                   <input
                     type="number"
                     min="0"
                     class="form-control"
                     id="rifiutiVetroKg"
                     placeholder="Es. 0 kg"
+                    data-i18n-placeholder="scope3w_glass_placeholder"
                   />
-                  <div class="form-text">Bottiglie e contenitori di vetro.</div>
+                  <div class="form-text" data-i18n="scope3w_glass_help">Bottiglie e contenitori di vetro.</div>
                 </div>
                 <div class="col-md-6">
-                  <label for="rifiutiMetalliKg" class="form-label">Metalli (kg/anno)</label>
+                  <label for="rifiutiMetalliKg" class="form-label" data-i18n="scope3w_metals_label">Metalli (kg/anno)</label>
                   <input
                     type="number"
                     min="0"
                     class="form-control"
                     id="rifiutiMetalliKg"
                     placeholder="Es. 0 kg"
+                    data-i18n-placeholder="scope3w_metals_placeholder"
                   />
-                  <div class="form-text">Lattine o altri rifiuti metallici.</div>
+                  <div class="form-text" data-i18n="scope3w_metals_help">Lattine o altri rifiuti metallici.</div>
                 </div>
                 <div class="col-md-6">
-                  <label for="rifiutiLegnoKg" class="form-label">Legno (kg/anno)</label>
+                  <label for="rifiutiLegnoKg" class="form-label" data-i18n="scope3w_wood_label">Legno (kg/anno)</label>
                   <input
                     type="number"
                     min="0"
                     class="form-control"
                     id="rifiutiLegnoKg"
                     placeholder="Es. 0 kg"
+                    data-i18n-placeholder="scope3w_wood_placeholder"
                   />
-                  <div class="form-text">Scarti di legno provenienti, ad esempio, da piccoli lavori.</div>
+                  <div class="form-text" data-i18n="scope3w_wood_help">Scarti di legno provenienti, ad esempio, da piccoli lavori.</div>
                 </div>
                 <div class="col-md-6">
-                  <label for="rifiutiIndifferenziatiKg" class="form-label">Indifferenziati (kg/anno)</label>
+                  <label for="rifiutiIndifferenziatiKg" class="form-label" data-i18n="scope3w_unsorted_label">Indifferenziati (kg/anno)</label>
                   <input
                     type="number"
                     min="0"
                     class="form-control"
                     id="rifiutiIndifferenziatiKg"
                     placeholder="Es. 1.100 kg"
+                    data-i18n-placeholder="scope3w_unsorted_placeholder"
                   />
-                  <div class="form-text">Tutto ciò che non viene differenziato (secco residuo).</div>
+                  <div class="form-text" data-i18n="scope3w_unsorted_help">Tutto ciò che non viene differenziato (secco residuo).</div>
                 </div>
               </div>
             </div>
@@ -336,7 +387,7 @@
               aria-expanded="false"
               aria-controls="collapseScope3Transport"
             >
-            Scope 3 – Trasporti
+            <span data-i18n="scope4_title">Scope 3 – Trasporti</span>
             </button>
           </h2>
           <div
@@ -346,12 +397,12 @@
             data-bs-parent="#scopeAccordion"
           >
             <div class="accordion-body">
-              <p class="small text-muted mb-2">
+              <p class="small text-muted mb-2" data-i18n="scope4_desc">
                 Emissioni dovute agli spostamenti casa–scuola (o casa–lavoro) abituali per ciascun mezzo.
               </p>
               <div class="row g-2 align-items-end mb-3">
                 <div class="col-12 col-md-4">
-                  <label class="form-label fw-semibold" for="giorniScuola">
+                  <label class="form-label fw-semibold" for="giorniScuola" data-i18n="scope4_days_label">
                     Numero di giorni di scuola totali
                   </label>
                   <input
@@ -360,30 +411,31 @@
                     class="form-control"
                     id="giorniScuola"
                     placeholder="Es. 200"
+                    data-i18n-placeholder="scope4_days_placeholder"
                   />
-                  <div class="form-text">
+                  <div class="form-text" data-i18n="scope4_days_help">
                     Indica il numero di giorni di scuola considerati per i calcoli degli spostamenti.
                   </div>
                 </div>
               </div>
               <div class="row g-2 align-items-end">
                 <div class="col-12 col-md-3">
-                  <label class="form-label">
+                  <label class="form-label" data-i18n="scope4_col_vehicle">
                     Descrizione mezzo di trasporto
                   </label>
                 </div>
                 <div class="col-6 col-md-3">
-                  <label class="form-label">
+                  <label class="form-label" data-i18n="scope4_col_people">
                     Numero di persone
                   </label>
                 </div>
                 <div class="col-6 col-md-3">
-                  <label class="form-label">
+                  <label class="form-label" data-i18n="scope4_col_distance">
                     Distanza giornaliera percorsa [km/giorno]
                   </label>
                 </div>
                 <div class="col-12 col-md-3">
-                  <label class="form-label">
+                  <label class="form-label" data-i18n="scope4_col_total">
                     Totale km annui (km × giorni × persone)
                   </label>
                 </div>
@@ -405,6 +457,7 @@
                     class="form-control"
                     id="personeAutobus"
                     placeholder="Es. 86"
+                    data-i18n-placeholder="scope4_bus_people_placeholder"
                   />
                 </div>
                 <div class="col-6 col-md-3">
@@ -414,6 +467,7 @@
                     class="form-control"
                     id="kmAutobusAnnui"
                     placeholder="Es. 21 km/giorno"
+                    data-i18n-placeholder="scope4_bus_km_placeholder"
                   />
                 </div>
                 <div class="col-12 col-md-3">
@@ -442,6 +496,7 @@
                     class="form-control"
                     id="personeMacchina"
                     placeholder="Es. 259"
+                    data-i18n-placeholder="scope4_car_people_placeholder"
                   />
                 </div>
                 <div class="col-6 col-md-3">
@@ -451,6 +506,7 @@
                     class="form-control"
                     id="kmMacchinaAnnui"
                     placeholder="Es. 8 km/giorno"
+                    data-i18n-placeholder="scope4_car_km_placeholder"
                   />
                 </div>
                 <div class="col-12 col-md-3">
@@ -479,6 +535,7 @@
                     class="form-control"
                     id="personePiedi"
                     placeholder="Es. 65"
+                    data-i18n-placeholder="scope4_walk_people_placeholder"
                   />
                 </div>
                 <div class="col-6 col-md-3">
@@ -488,6 +545,7 @@
                     class="form-control"
                     id="kmPiediAnnui"
                     placeholder="Es. 1,5 km/giorno"
+                    data-i18n-placeholder="scope4_walk_km_placeholder"
                   />
                 </div>
                 <div class="col-12 col-md-3">
@@ -516,6 +574,7 @@
                     class="form-control"
                     id="personeElettrica"
                     placeholder="Es. 22"
+                    data-i18n-placeholder="scope4_ev_people_placeholder"
                   />
                 </div>
                 <div class="col-6 col-md-3">
@@ -525,6 +584,7 @@
                     class="form-control"
                     id="kmElettricaAnnui"
                     placeholder="Es. 8 km/giorno"
+                    data-i18n-placeholder="scope4_ev_km_placeholder"
                   />
                 </div>
                 <div class="col-12 col-md-3">
@@ -545,9 +605,9 @@
     <!-- Anteprima del risultato + pulsante calcolo -->
     <section class="mb-5">
       <button id="calcolaBtn" class="btn btn-primary btn-lg px-4">
-        Calcola impronta
+        <span data-i18n="index_calc_btn">Calcola impronta</span>
       </button>
-      <div class="form-text mt-2 text-muted">
+      <div class="form-text mt-2 text-muted" data-i18n="index_calc_help">
         I campi lasciati vuoti verranno considerati come zero. Verrai portato alla pagina dei risultati per vedere il punteggio.
       </div>
     </section>
@@ -561,6 +621,7 @@
   ></script>
 
   <script src="js/calculator.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
