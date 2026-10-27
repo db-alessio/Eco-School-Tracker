@@ -18,7 +18,7 @@ Il software ha uno scopo educativo e di sensibilizzazione ambientale. L'utente t
 
 **@Architecture Rules**
 Utilizzare una struttura di progetto Vanilla standard con separazione delle responsabilità:
-- `index.html` nella root principale.
+- `landing_page.html` per la landing e `calculator.html` per il questionario.
 - `/css` per i fogli di stile personalizzati.
 - `/js` per la logica. Separare la logica in moduli se possibile (es. `calculator.js` per gli algoritmi e i fattori di conversione, `app.js` o `ui.js` per la manipolazione del DOM e gli eventi).
 - `/assets` (o la cartella Layout indicata) per immagini e icone.

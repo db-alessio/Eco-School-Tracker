@@ -327,7 +327,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Inizializzazione pagina INDEX (form di input)
   (function initIndexPage() {
     const calcolaBtn = document.getElementById("calcolaBtn");
-    if (!calcolaBtn) return; // non siamo su index.html
+    if (!calcolaBtn) return; // non siamo sulla pagina del questionario
 
     // Attacca validazione a tutti i campi
     Object.keys(validationRules).forEach(function (fieldId) {
@@ -403,7 +403,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 
-  // Rendering dei risultati nella pagina corrente o nella pagina legacy results.html.
+  // Rendering dei risultati nella pagina corrente o in results.html.
   function initializeResultsPage() {
     const resultsRoot = document.getElementById("resultsRoot");
     if (!resultsRoot) return;
