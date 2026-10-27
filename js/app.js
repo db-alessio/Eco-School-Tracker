@@ -403,13 +403,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 
-  // Inizializzazione pagina RESULTS (results.html)
-  (function initResultsPage() {
+  // Rendering dei risultati nella pagina corrente o nella pagina legacy results.html.
+  function initializeResultsPage() {
     const resultsRoot = document.getElementById("resultsRoot");
-    if (!resultsRoot) return; // non siamo su results.html
+    if (!resultsRoot) return;
 
     const noDataAlert = document.getElementById("noDataAlert");
     const resultsCards = document.getElementById("resultsCards");
+    if (noDataAlert) noDataAlert.classList.add("d-none");
+    if (resultsCards) resultsCards.classList.remove("opacity-50");
     const totaleEmissioniEl = document.getElementById("totaleEmissioni");
     const emissioniProCapiteEl = document.getElementById("emissioniProCapite");
     const punteggioBadgeCompleto = document.getElementById("punteggioBadgeCompleto");
@@ -470,6 +472,16 @@ document.addEventListener("DOMContentLoaded", function () {
       const percent = Math.max(rawPercent, 2); // minimo 2% visivo se > 0
       valueEl.textContent = formatNumberWithSeparators(value, 0); // mostra valore assoluto con separatori
       barEl.style.width = percent + "%";
+    }
+
+    function setBreakdownRows(breakdown, rows) {
+      rows.forEach(function (row) {
+        const detail = breakdown[row.key];
+        document.getElementById(row.valueId).textContent =
+          detail.percentuale.toFixed(1) + "%";
+        document.getElementById(row.barId).style.width =
+          detail.percentuale + "%";
+      });
     }
 
     function aggiornaFaccina(score, elementId) {
@@ -615,29 +627,44 @@ document.addEventListener("DOMContentLoaded", function () {
       totaleReale
     );
 
-    // Breakdown dettagliati Scope 2 e Scope 3 Trasporti
+    // Breakdown dettagliati dei quattro scope
+    const scope1Detail = window.EcoCalculator.getScope1Breakdown(inputs);
     const scope2Detail = window.EcoCalculator.getScope2Breakdown(inputs);
+    const scope3WasteDetail = window.EcoCalculator.getScope3WasteBreakdown(inputs);
     const scope3TransportDetail = window.EcoCalculator.getScope3TransportBreakdown(inputs);
 
-    // Popola Scope 2 breakdown
-    document.getElementById("scope2NonRinVal").textContent = scope2Detail.nonRinnovabili.percentuale.toFixed(1) + "%";
-    document.getElementById("scope2NonRinBar").style.width = scope2Detail.nonRinnovabili.percentuale + "%";
-    
-    document.getElementById("scope2RenVal").textContent = scope2Detail.rinnovabili.percentuale.toFixed(1) + "%";
-    document.getElementById("scope2RenBar").style.width = scope2Detail.rinnovabili.percentuale + "%";
-    
-    document.getElementById("scope2AutoprodVal").textContent = (scope2Detail.autoprodotta.percentuale + scope2Detail.autoconsumata.percentuale).toFixed(1) + "%";
-    document.getElementById("scope2AutoprodBar").style.width = (scope2Detail.autoprodotta.percentuale + scope2Detail.autoconsumata.percentuale) + "%";
-
-    // Popola Scope 3 Trasporti breakdown
-    document.getElementById("scope3AutobusVal").textContent = scope3TransportDetail.autobus.percentuale.toFixed(1) + "%";
-    document.getElementById("scope3AutobusBar").style.width = scope3TransportDetail.autobus.percentuale + "%";
-    
-    document.getElementById("scope3MacchinaVal").textContent = scope3TransportDetail.macchina.percentuale.toFixed(1) + "%";
-    document.getElementById("scope3MacchinaBar").style.width = scope3TransportDetail.macchina.percentuale + "%";
-    
-    document.getElementById("scope3ElettricaVal").textContent = scope3TransportDetail.elettrica.percentuale.toFixed(1) + "%";
-    document.getElementById("scope3ElettricaBar").style.width = scope3TransportDetail.elettrica.percentuale + "%";
+    setBreakdownRows(scope1Detail, [
+      { key: "metano", valueId: "scope1MethaneVal", barId: "scope1MethaneBar" },
+      {
+        key: "altriCombustibili",
+        valueId: "scope1OtherFuelsVal",
+        barId: "scope1OtherFuelsBar",
+      },
+    ]);
+    setBreakdownRows(scope2Detail, [
+      { key: "nonRinnovabili", valueId: "scope2NonRinVal", barId: "scope2NonRinBar" },
+      { key: "rinnovabili", valueId: "scope2RenVal", barId: "scope2RenBar" },
+      { key: "autoprodotta", valueId: "scope2AutoprodVal", barId: "scope2AutoprodBar" },
+      { key: "autoconsumata", valueId: "scope2AutoconsVal", barId: "scope2AutoconsBar" },
+    ]);
+    setBreakdownRows(scope3WasteDetail, [
+      { key: "plastica", valueId: "scope3WastePlasticVal", barId: "scope3WastePlasticBar" },
+      { key: "carta", valueId: "scope3WastePaperVal", barId: "scope3WastePaperBar" },
+      { key: "vetro", valueId: "scope3WasteGlassVal", barId: "scope3WasteGlassBar" },
+      { key: "metalli", valueId: "scope3WasteMetalsVal", barId: "scope3WasteMetalsBar" },
+      { key: "legno", valueId: "scope3WasteWoodVal", barId: "scope3WasteWoodBar" },
+      {
+        key: "indifferenziati",
+        valueId: "scope3WasteUnsortedVal",
+        barId: "scope3WasteUnsortedBar",
+      },
+    ]);
+    setBreakdownRows(scope3TransportDetail, [
+      { key: "autobus", valueId: "scope3AutobusVal", barId: "scope3AutobusBar" },
+      { key: "macchina", valueId: "scope3MacchinaVal", barId: "scope3MacchinaBar" },
+      { key: "piedi", valueId: "scope3PiediVal", barId: "scope3PiediBar" },
+      { key: "elettrica", valueId: "scope3ElettricaVal", barId: "scope3ElettricaBar" },
+    ]);
 
     // Ascolta cambi di lingua per aggiornare il messaggio
     window.addEventListener("ecoSchoolLangChanged", function () {
@@ -646,6 +673,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-  })();
-});
+  }
 
+  if (
+    document.getElementById("resultsRoot") &&
+    !document.getElementById("calcolaBtn")
+  ) {
+    initializeResultsPage();
+  }
+});

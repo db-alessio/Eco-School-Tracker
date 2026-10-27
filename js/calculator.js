@@ -98,6 +98,19 @@ function calculateScope3Transport(inputs) {
   );
 }
 
+function createBreakdown(emissions) {
+  const total = Object.values(emissions).reduce((sum, value) => sum + value, 0);
+  return Object.fromEntries(
+    Object.entries(emissions).map(([key, value]) => [
+      key,
+      {
+        emissioni: value,
+        percentuale: total > 0 ? (value / total) * 100 : 0,
+      },
+    ])
+  );
+}
+
 function calculateTotalEmissions(allInputs) {
   const scope1 = calculateScope1(allInputs);
   const scope2 = calculateScope2(allInputs);
@@ -146,6 +159,23 @@ function calculateScoreFromPerCapita(perCapitaKg) {
 window.EcoCalculator = {
   calculateTotalEmissions,
   calculateScoreFromPerCapita,
+  getScope1Breakdown: function (inputs) {
+    return createBreakdown({
+      metano: (inputs.gasMetanoMc || 0) * GAS_METANO,
+      altriCombustibili: (inputs.altriCombustibiliKg || 0) * ALTRI_COMBUSTIBILI,
+    });
+  },
+  getScope3WasteBreakdown: function (inputs) {
+    return createBreakdown({
+      plastica: (inputs.rifiutiPlasticaKg || 0) * RIFIUTI_PLASTICA,
+      carta: (inputs.rifiutiCartaKg || 0) * RIFIUTI_CARTA,
+      vetro: (inputs.rifiutiVetroKg || 0) * RIFIUTI_VETRO,
+      metalli: (inputs.rifiutiMetalliKg || 0) * RIFIUTI_METALLI,
+      legno: (inputs.rifiutiLegnoKg || 0) * RIFIUTI_LEGNO,
+      indifferenziati:
+        (inputs.rifiutiIndifferenziatiKg || 0) * RIFIUTI_INDIFFERENZIATI,
+    });
+  },
   // Funzione per breakdown dettagliato di Scope 2
   getScope2Breakdown: function(inputs) {
     const energiaNonRinnovabiliKwh = inputs.energiaNonRinnovabiliKwh || 0;
@@ -158,15 +188,12 @@ window.EcoCalculator = {
     const emissioniAutoprodotta = energiaAutoprodottaKwh * ENERGIA_AUTOPROD;
     const emissioniAutoconsumata = energiaAutoconsumataKwh * ENERGIA_AUTOCONS;
     
-    const totaleScope2 = emissioniNonRinnovabili + emissioniRinnovabili + emissioniAutoprodotta + emissioniAutoconsumata;
-    
-    return {
-      nonRinnovabili: { emissioni: emissioniNonRinnovabili, percentuale: totaleScope2 > 0 ? (emissioniNonRinnovabili / totaleScope2) * 100 : 0 },
-      rinnovabili: { emissioni: emissioniRinnovabili, percentuale: totaleScope2 > 0 ? (emissioniRinnovabili / totaleScope2) * 100 : 0 },
-      autoprodotta: { emissioni: emissioniAutoprodotta, percentuale: totaleScope2 > 0 ? (emissioniAutoprodotta / totaleScope2) * 100 : 0 },
-      autoconsumata: { emissioni: emissioniAutoconsumata, percentuale: totaleScope2 > 0 ? (emissioniAutoconsumata / totaleScope2) * 100 : 0 },
-      totale: totaleScope2
-    };
+    return createBreakdown({
+      nonRinnovabili: emissioniNonRinnovabili,
+      rinnovabili: emissioniRinnovabili,
+      autoprodotta: emissioniAutoprodotta,
+      autoconsumata: emissioniAutoconsumata,
+    });
   },
   // Funzione per breakdown dettagliato di Scope 3 Trasporti
   getScope3TransportBreakdown: function(inputs) {
@@ -180,15 +207,11 @@ window.EcoCalculator = {
     const emissioniPiedi = kmPiedi * A_PIEDI;
     const emissioniElettrica = kmElettrica * AUTO_ELETTRICA;
     
-    const totaleTransport = emissioniAutobus + emissioniMacchina + emissioniPiedi + emissioniElettrica;
-    
-    return {
-      autobus: { emissioni: emissioniAutobus, percentuale: totaleTransport > 0 ? (emissioniAutobus / totaleTransport) * 100 : 0 },
-      macchina: { emissioni: emissioniMacchina, percentuale: totaleTransport > 0 ? (emissioniMacchina / totaleTransport) * 100 : 0 },
-      piedi: { emissioni: emissioniPiedi, percentuale: totaleTransport > 0 ? (emissioniPiedi / totaleTransport) * 100 : 0 },
-      elettrica: { emissioni: emissioniElettrica, percentuale: totaleTransport > 0 ? (emissioniElettrica / totaleTransport) * 100 : 0 },
-      totale: totaleTransport
-    };
+    return createBreakdown({
+      autobus: emissioniAutobus,
+      macchina: emissioniMacchina,
+      piedi: emissioniPiedi,
+      elettrica: emissioniElettrica,
+    });
   }
 };
-

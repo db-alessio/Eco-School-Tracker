@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="landing_page_title">Eco-School Tracker: calcola l’impronta di carbonio della tua scuola</title>
+  <meta name="description" content="Scopri il progetto Eco-School Tracker e calcola le emissioni annue della tua scuola." data-i18n-content="landing_meta_description">
+  <link rel="icon" type="image/png" href="Layout/favicon.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+<header class="py-4 mb-4 border-bottom bg-light">
+  <div class="container d-flex align-items-center justify-content-between gap-3">
+    <div class="d-flex align-items-center gap-3">
+      <img src="Layout/favicon.png" alt="Eco-School Tracker" class="app-logo" width="72" height="72">
+      <div>
+        <h1 class="h3 mb-1 text-success fw-bold app-title">Eco-School Tracker</h1>
+        <p class="mb-0 text-muted" data-i18n="header_subtitle_index">Uno strumento semplice per il calcolo dell’impronta di carbonio.</p>
+      </div>
+    </div>
+    <div class="btn-group lang-switch" role="group" aria-label="Selezione lingua" data-i18n-aria-label="language_selection">
+      <button type="button" class="btn btn-lang" id="langItBtn" data-lang="it" aria-label="Italiano" title="Italiano">🇮🇹 <span class="lang-label">Italiano</span></button>
+      <button type="button" class="btn btn-lang" id="langEnBtn" data-lang="en" aria-label="English" title="English">🇬🇧 <span class="lang-label">English</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="container mb-5">
+  <section class="hero py-4 mb-2">
+    <span class="badge text-bg-success-subtle mb-3" data-i18n="landing_badge">Progetto RISE · Liceo G. Marconi</span>
+    <h2 class="mb-3" data-i18n-html="landing_hero_title">Quanta CO<span class="subscript">2</span> emette la nostra scuola?</h2>
+    <p class="lead text-muted mb-0 hero-copy" data-i18n="landing_hero_intro">Eco-School Tracker è un calcolatore dell’impronta di carbonio per tutti. È nato dal lavoro di un gruppo interclasse del nostro liceo: qui trovi come è andata e chi ci ha aiutato.</p>
+  </section>
+
+  <div class="row g-4">
+    <aside class="col-lg-3">
+      <nav class="toc-side" aria-label="Indice della pagina" data-i18n-aria-label="landing_toc_label">
+      <p class="toc-title" data-i18n="landing_toc_title">In questa pagina</p>
+        <ol class="list-unstyled mb-0">
+          <li><a href="#nascita"><span class="num">1</span><span data-i18n="landing_toc_origin">Come è nato</span></a></li>
+          <li><a href="#sviluppo"><span class="num">2</span><span data-i18n="landing_toc_development">Sviluppo e team</span></a></li>
+          <li><a href="#terzi"><span class="num">3</span><span data-i18n="landing_toc_partners">Collaborazioni</span></a></li>
+          <li><a href="#calcola"><span class="num">4</span><span data-i18n="landing_toc_calculator">Calcolatore</span></a></li>
+        </ol>
+      </nav>
+    </aside>
+    <div class="col-lg-9">
+      <section class="mb-4" id="nascita" aria-labelledby="t-nascita">
+        <div class="card"><div class="card-body p-4">
+          <div class="d-flex align-items-center gap-3 mb-3"><span class="num">1</span><h3 class="sec h4 card-title mb-0" id="t-nascita" data-i18n="landing_origin_title">Come è nato il progetto</h3></div>
+          <p data-i18n-html="landing_origin_intro">Il nostro è un edificio <strong>nZEB</strong> (Nearly Zero Energy Building, a energia quasi zero) di classe energetica A4, con pannelli fotovoltaici sul tetto: un punto di partenza interessante per capire che cosa pesa davvero sulla nostra impronta.</p>
+          <p data-i18n-html="landing_origin_rise">Così è nato <strong>RISE</strong> (<em>Renewable and Innovative School for local Engagement</em>), portato avanti da un gruppo interclasse delle classi 4ASA, 4BSA e 4AART. Gli obiettivi erano due: costruire lo strumento <strong>Eco-School Tracker</strong> e progettare soluzioni più verdi per gli spazi esterni della scuola.</p>
+          <p class="small text-muted mb-2" data-i18n="landing_sdg_intro">Obiettivi dell’Agenda 2030 su cui abbiamo lavorato:</p>
+          <ul class="sdg-grid list-unstyled mb-0" aria-label="Obiettivi di sviluppo sostenibile" data-i18n-aria-label="landing_sdg_label">
+            <li class="sdg"><img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-04.jpg" alt="Obiettivo 4: Istruzione di qualità" data-i18n-alt="landing_sdg_4" loading="lazy" decoding="async"></li>
+            <li class="sdg"><img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-07.jpg" alt="Obiettivo 7: Energia pulita e accessibile" data-i18n-alt="landing_sdg_7" loading="lazy" decoding="async"></li>
+            <li class="sdg"><img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-11.jpg" alt="Obiettivo 11: Città e comunità sostenibili" data-i18n-alt="landing_sdg_11" loading="lazy" decoding="async"></li>
+            <li class="sdg"><img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-12.jpg" alt="Obiettivo 12: Consumo e produzione responsabili" data-i18n-alt="landing_sdg_12" loading="lazy" decoding="async"></li>
+            <li class="sdg"><img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-13.jpg" alt="Obiettivo 13: Azione per il clima" data-i18n-alt="landing_sdg_13" loading="lazy" decoding="async"></li>
+            <li class="sdg"><img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-15.jpg" alt="Obiettivo 15: La vita sulla terra" data-i18n-alt="landing_sdg_15" loading="lazy" decoding="async"></li>
+          </ul>
+        </div></div>
+      </section>
+
+      <section class="mb-4" id="sviluppo" aria-labelledby="t-sviluppo">
+        <div class="card"><div class="card-body p-4">
+          <div class="d-flex align-items-center gap-3 mb-3"><span class="num">2</span><h3 class="sec h4 card-title mb-0" id="t-sviluppo" data-i18n="landing_development_title">Come è stato sviluppato e chi lo ha portato avanti</h3></div>
+          <h4 class="h6 fw-bold" data-i18n="landing_method_title">Il metodo</h4>
+          <p data-i18n-html="landing_method_intro">Seguendo gli <em>scope</em> del Greenhouse Gas Protocol (emissioni dirette, emissioni indirette da energia e altre emissioni indirette, come mobilità e rifiuti), abbiamo costruito un database con i dati della scuola:</p>
+          <ul>
+            <li data-i18n-html="landing_method_direct"><strong>Emissioni dirette:</strong> la scuola non ne ha.</li>
+            <li data-i18n-html="landing_method_energy"><strong>Energia:</strong> usa solo elettricità da fonti rinnovabili.</li>
+            <li data-i18n-html="landing_method_waste"><strong>Rifiuti:</strong> abbiamo pesato ogni settimana plastica, carta e indifferenziato e ricavato il dato annuo.</li>
+            <li data-i18n-html="landing_method_transport"><strong>Trasporti:</strong> abbiamo fatto un’indagine tra tutti gli utenti della scuola per calcolare i chilometri medi percorsi in autobus, auto, a piedi e con auto elettriche.</li>
+          </ul>
+          <h4 class="h6 fw-bold mt-4" data-i18n="landing_site_title">Il sito</h4>
+          <p data-i18n-html="landing_site_text">Per lo sviluppo abbiamo scelto il <em>vibe coding</em>: invece di definire il codice riga per riga, abbiamo posto obiettivi e regole di calcolo in un file di istruzioni (<code>agents.md</code>), generato con un Gem personalizzato, che ha guidato l’agente di Cursor. Attraverso vari linguaggi di programmazione (HTML, CSS e JavaScript), ai quattro <em>scope</em> sono stati associati i fattori di conversione della CO<span class="subscript">2</span>. Il risultato è un sito semplice, in italiano e in inglese, che restituisce il totale, il dato pro capite e un punteggio da 1 a 10 dell'impronta di carbonio.</p>
+          <div class="school-emissions">
+            <p data-i18n-html="landing_school_emissions">Nella nostra scuola la CO<sub>2</sub> emessa è di <strong>188.549 kg CO<sub>2</sub>e all’anno</strong>, pari a <strong>436 kg CO<sub>2</sub>e per persona</strong>.</p>
+            <svg class="carbon-footprint-icon" viewBox="0 0 64 64" role="img" aria-label="Illustrazione di un’impronta" data-i18n-aria-label="landing_footprint_alt">
+              <path fill="currentColor" d="M37.7 25.8c-5.8-1.6-12.1 3.2-15.5 11.6-3.3 8.3-2.2 15.4 3 17.4 4.8 1.9 8.3-2 12.1-3.3 4.2-1.5 9.3 1.1 12.2-2.6 3.3-4.1.1-11.4-3.7-17.1-2.2-3.3-5-5.2-8.1-6zM17.1 24.9c-2.8-.5-5.1 1.9-5.8 5.5-.7 3.5.4 6.4 2.8 6.8 2.6.4 4.5-2.4 5-5.4.5-3.2.1-6.4-2-6.9zm8-8.7c-2.7-.8-5.4 1.4-6.3 4.7-.9 3.1.3 6.1 2.6 6.7 2.6.7 4.9-1.8 5.5-4.8.6-3-.1-5.9-1.8-6.6zm10.6-2c-2.8-.2-4.9 2.6-4.8 5.9.1 3.2 1.9 5.5 4.3 5.5 2.7 0 4.1-3 3.8-6.1-.2-2.9-1.4-5.1-3.3-5.3zm10 3c-2.7.5-3.8 3.6-2.7 6.6 1 2.9 3.4 4.5 5.6 3.7 2.5-.9 2.9-4.1 1.7-6.8-1.1-2.6-2.8-3.9-4.6-3.5z"/>
+            </svg>
+          </div>
+          <h4 class="h6 fw-bold mt-4" data-i18n="landing_discovery_title">Che cosa abbiamo scoperto</h4>
+          <p data-i18n-html="landing_scenarios_intro">Abbiamo confrontato tre scenari, in kg di CO<span class="subscript">2</span>e per persona all’anno:</p>
+          <div class="d-grid gap-3 mb-3">
+            <div><div class="d-flex justify-content-between small fw-semibold"><span data-i18n="landing_scenario_better">Scenario migliorativo</span><span>365</span></div><div class="scope-bar-track"><span class="scope-bar-improved"></span></div></div>
+            <div><div class="d-flex justify-content-between small fw-semibold"><span data-i18n="landing_scenario_current">Situazione attuale</span><span>436</span></div><div class="scope-bar-track"><span class="scope-bar-current"></span></div></div>
+            <div><div class="d-flex justify-content-between small fw-semibold"><span data-i18n="landing_scenario_worse">Scenario peggiorativo (riscaldamento a gas ed elettricità non rinnovabile)</span><span>804</span></div><div class="scope-bar-track"><span class="scope-bar-worse"></span></div></div>
+          </div>
+          <p data-i18n="landing_mobility_proposals">Nella situazione attuale gli spostamenti casa–scuola pesano circa 401 kg su 436, cioè oltre il 90% dell’impronta pro capite. Per questo le nostre proposte puntano su un piano di mobilità urbana per favorire trasporto pubblico e bicicletta, e su un’app, da sviluppare insieme alle istituzioni locali, per monitorare gli ingressi a scuola con mobilità dolce o mezzi pubblici.</p>
+          <p data-i18n-html="landing_schoolyard_proposals">Per gli spazi esterni proponiamo una <strong>scuola “vivente”</strong>, con pavimentazioni drenanti e aree verdi che rispettano la biodiversità e vivibilità secondo i criteri delle NBS (Nature Based Solutions), e nuovi alberi nel parcheggio accanto all’edificio.</p>
+          <h4 class="h6 fw-bold mt-4" data-i18n="landing_team_title">Chi ci ha lavorato</h4>
+          <p class="text-muted small" data-i18n="landing_team_intro">Il gruppo interclasse delle classi 4ASA, 4BSA e 4AART, con il supporto di:</p>
+          <div class="row g-3">
+            <div class="col-md-6"><div class="team-card p-3 border rounded-3 bg-white h-100"><div><strong>Daniela Riganelli</strong><div class="small text-muted" data-i18n="landing_role_project">Coordinamento del progetto</div></div><div class="team-photo-slot" aria-hidden="true"></div></div></div>
+            <div class="col-md-6"><div class="team-card p-3 border rounded-3 bg-white h-100"><div><strong>Jacopo Michelini</strong><div class="small text-muted" data-i18n="landing_role_it">Coordinamento informatico</div></div><div class="team-photo-slot" aria-hidden="true"></div></div></div>
+            <div class="col-md-6"><div class="team-card p-3 border rounded-3 bg-white h-100"><div><strong>Rudy Trapassi</strong><div class="small text-muted" data-i18n="landing_role_graphic">Coordinamento grafico</div></div><div class="team-photo-slot" aria-hidden="true"></div></div></div>
+            <div class="col-md-6"><div class="team-card p-3 border rounded-3 bg-white h-100"><div><strong>Andrea Terenzi</strong><div class="small text-muted" data-i18n="landing_role_carbon">Specialista di impronta di carbonio</div></div><div class="team-photo-slot" aria-hidden="true"></div></div></div>
+          </div>
+        </div></div>
+      </section>
+
+      <section class="mb-4" id="terzi" aria-labelledby="t-terzi">
+        <div class="card"><div class="card-body p-4">
+          <div class="d-flex align-items-center gap-3 mb-3"><span class="num">3</span><h3 class="sec h4 card-title mb-0" id="t-terzi" data-i18n="landing_partners_title">Terzi con cui abbiamo collaborato</h3></div>
+          <div class="row g-3 mb-4">
+            <div class="col-md-6"><div class="p-3 border rounded-3 bg-white h-100"><strong>Legambiente</strong><div class="small text-muted" data-i18n="landing_legambiente">Ha proposto il progetto “Per un salto di classe”. Il presidente di Legambiente Umbria, Maurizio Zara, ha commentato il nostro lavoro. Con Legambiente Foligno e il progetto PiantiAMO abbiamo ragionato sulla proposta di nuovi alberi nel parcheggio accanto alla scuola.</div></div></div>
+            <div class="col-md-6"><div class="p-3 border rounded-3 bg-white h-100"><strong>ARPA Umbria</strong><div class="small text-muted" data-i18n="landing_arpa">Agenzia regionale per la protezione ambientale. Abbiamo chiesto la sua collaborazione, insieme a quella di Legambiente, per la raccolta dei dati e la diffusione del progetto.</div></div></div>
+          </div>
+          <p class="fw-semibold mb-1" data-i18n="landing_other_schools_title">Verso altre scuole</p>
+          <p class="text-muted mb-0" data-i18n-html="landing_other_schools">Vorremmo che le scuole delle nostre reti e quelle partner provassero l’Eco-Tracker. Per farlo guardiamo a iniziative e realtà come il Premio Scuola Sostenibile, il progetto ENNE+ (<em>Enhancing VET National Networks through Ecoinnovation</em>) e FELCOS Umbria, l’associazione di Comuni per lo sviluppo sostenibile.</p>
+        </div></div>
+      </section>
+
+      <section id="calcola" aria-labelledby="t-calcola">
+        <div class="card"><div class="card-body p-4 text-center">
+          <h3 class="sec h4 card-title mb-2" id="t-calcola" data-i18n="landing_cta_title">Ora tocca a te</h3>
+          <p class="text-muted mx-auto mb-4 cta-copy" data-i18n="landing_cta_text">Inserisci i dati della tua scuola, anche approssimativi, e scopri il punteggio. È un modello semplificato a scopo educativo, non una certificazione.</p>
+          <a class="btn btn-cta btn-lg" href="index.html" data-i18n="landing_cta_button">Vai al calcolatore</a>
+        </div></div>
+      </section>
+    </div>
+  </div>
+</main>
+<footer class="border-top bg-light py-3 text-center text-muted small" data-i18n="landing_footer">Liceo G. Marconi · Progetto RISE · Eco-Digithon · scientificofoligno@libero.it</footer>
+<script src="js/i18n.js"></script>
+<script src="js/landing.js"></script>
+</body>
+</html>

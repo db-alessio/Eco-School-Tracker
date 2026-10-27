@@ -30,10 +30,10 @@
   <header class="py-4 mb-4 border-bottom bg-light">
     <div class="container">
       <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
-        <div class="d-flex align-items-center gap-3">
+        <a class="app-home-link d-flex align-items-center gap-3 text-decoration-none" href="landing_page_prova.html" data-i18n-aria-label="home_link_label">
           <img
             src="Layout/favicon.png?v=1"
-            alt="Eco-School Tracker"
+            alt=""
             class="app-logo"
             width="72"
             height="72"
@@ -45,8 +45,12 @@
             <p class="mb-0 text-muted" data-i18n="header_subtitle_results">
               Risultati del calcolo dell’impronta di carbonio della scuola.
             </p>
+            <span class="app-home-hint">
+              <svg aria-hidden="true" viewBox="0 0 16 16"><path d="M1.5 7.3 8 1.8l6.5 5.5v6.2a.8.8 0 0 1-.8.8h-4V9.7H6.3v4.6h-4a.8.8 0 0 1-.8-.8V7.3Z"/></svg>
+              <span data-i18n="home_link_label">Pagina iniziale</span>
+            </span>
           </div>
-        </div>
+        </a>
         <div class="d-flex align-items-center justify-content-md-end gap-2">
           <div class="btn-group lang-switch" role="group" aria-label="Selezione lingua">
             <button
@@ -182,151 +186,81 @@
             <div class="card-body">
               <h2 class="h5 card-title mb-3" data-i18n="results_breakdown_title">Ripartizione per Scope</h2>
               <p class="small text-muted" data-i18n="results_breakdown_help">
-                La larghezza di ciascuna barra indica il peso relativo di ogni scope sul totale delle emissioni.
+                La barra mostra il peso sul totale. Seleziona uno scope per vedere il dettaglio.
               </p>
 
               <div class="scope-bar-row">
-                <div class="d-flex justify-content-between align-items-center mb-1">
+                <button class="scope-breakdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#scope1Detail" aria-expanded="false" aria-controls="scope1Detail">
                   <span data-i18n="scope1_title">Scope 1 – Emissioni dirette</span>
-                  <span class="fw-semibold">
-                    <span id="scope1Val">0</span>
-                    <span data-i18n-html="unit_kg_co2e_year">kg CO<span class="subscript">2</span>e/anno</span>
-                  </span>
-                </div>
+                  <span class="scope-breakdown-total"><span id="scope1Val">0</span> <span data-i18n-html="unit_kg_co2e_year">kg CO<span class="subscript">2</span>e/anno</span></span>
+                </button>
                 <div class="scope-bar-track">
                   <div class="scope-bar-fill scope1" id="scope1Bar"></div>
                 </div>
-              </div>
-
-              <div class="scope-bar-row">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <span data-i18n="scope2_title">Scope 2 – Energia</span>
-                  <span class="fw-semibold">
-                    <span id="scope2Val">0</span>
-                    <span data-i18n-html="unit_kg_co2e_year">kg CO<span class="subscript">2</span>e/anno</span>
-                  </span>
-                </div>
-                <div class="scope-bar-track">
-                  <div class="scope-bar-fill scope2" id="scope2Bar"></div>
-                </div>
-              </div>
-
-              <div class="scope-bar-row">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <span data-i18n="scope3w_title">Scope 3 – Rifiuti</span>
-                  <span class="fw-semibold">
-                    <span id="scope3WasteVal">0</span>
-                    <span data-i18n-html="unit_kg_co2e_year">kg CO<span class="subscript">2</span>e/anno</span>
-                  </span>
-                </div>
-                <div class="scope-bar-track">
-                  <div class="scope-bar-fill scope3-waste" id="scope3WasteBar"></div>
-                </div>
-              </div>
-
-              <div class="scope-bar-row">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <span data-i18n="scope4_title">Scope 3 – Trasporti</span>
-                  <span class="fw-semibold">
-                    <span id="scope3TransportVal">0</span>
-                    <span data-i18n-html="unit_kg_co2e_year">kg CO<span class="subscript">2</span>e/anno</span>
-                  </span>
-                </div>
-                <div class="scope-bar-track">
-                  <div class="scope-bar-fill scope3-transport" id="scope3TransportBar"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Breakdown dettagliato Scope 2 -->
-        <div class="row g-4 mt-3">
-          <div class="col-lg-6">
-            <div class="card shadow-sm">
-              <div class="card-header bg-light border-bottom">
-                <h3 class="h6 mb-0">
-                  <button class="btn btn-link text-decoration-none fw-bold" 
-                          type="button" 
-                          data-bs-toggle="collapse" 
-                          data-bs-target="#scope2Detail"
-                          aria-expanded="false"
-                          aria-controls="scope2Detail"
-                          data-i18n="results_scope2_details">
-                    📊 Dettagli Scope 2 (Energia)
-                  </button>
-                </h3>
-              </div>
-              <div class="collapse" id="scope2Detail">
-                <div class="card-body">
+                <div class="collapse scope-breakdown-detail" id="scope1Detail">
+                  <p class="small text-muted mb-2" data-i18n="results_detail_help">Le percentuali indicano la quota delle emissioni all’interno di questo scope.</p>
                   <div class="small">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                      <span data-i18n="scope2_label_nonren">Non rinnovabili</span>
-                      <span><strong id="scope2NonRinVal">0%</strong></span>
-                    </div>
-                    <div class="progress mb-3" style="height: 8px;">
-                      <div id="scope2NonRinBar" class="progress-bar" style="width: 0%"></div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                      <span data-i18n="scope2_label_ren">Rinnovabili</span>
-                      <span><strong id="scope2RenVal">0%</strong></span>
-                    </div>
-                    <div class="progress mb-3" style="height: 8px;">
-                      <div id="scope2RenBar" class="progress-bar bg-success" style="width: 0%"></div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                      <span data-i18n="scope2_label_autoprod">Autoprodotta</span>
-                      <span><strong id="scope2AutoprodVal">0%</strong></span>
-                    </div>
-                    <div class="progress" style="height: 8px;">
-                      <div id="scope2AutoprodBar" class="progress-bar bg-info" style="width: 0%"></div>
-                    </div>
+                    <div class="scope-detail-line"><span data-i18n="results_detail_methane">Gas metano</span><strong id="scope1MethaneVal">0%</strong></div><div class="scope-detail-track"><div id="scope1MethaneBar" class="scope-detail-fill"></div></div>
+                    <div class="scope-detail-line"><span data-i18n="results_detail_other_fuels">Altri combustibili</span><strong id="scope1OtherFuelsVal">0%</strong></div><div class="scope-detail-track"><div id="scope1OtherFuelsBar" class="scope-detail-fill"></div></div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <!-- Breakdown dettagliato Scope 3 Trasporti -->
-          <div class="col-lg-6">
-            <div class="card shadow-sm">
-              <div class="card-header bg-light border-bottom">
-                <h3 class="h6 mb-0">
-                  <button class="btn btn-link text-decoration-none fw-bold" 
-                          type="button" 
-                          data-bs-toggle="collapse" 
-                          data-bs-target="#scope3TransportDetail"
-                          aria-expanded="false"
-                          aria-controls="scope3TransportDetail"
-                          data-i18n="results_scope3transport_details">
-                    🚗 Dettagli Scope 3 (Trasporti)
-                  </button>
-                </h3>
-              </div>
-              <div class="collapse" id="scope3TransportDetail">
-                <div class="card-body">
+              <div class="scope-bar-row">
+                <button class="scope-breakdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#scope2Detail" aria-expanded="false" aria-controls="scope2Detail">
+                  <span data-i18n="scope2_title">Scope 2 – Energia</span>
+                  <span class="scope-breakdown-total"><span id="scope2Val">0</span> <span data-i18n-html="unit_kg_co2e_year">kg CO<span class="subscript">2</span>e/anno</span></span>
+                </button>
+                <div class="scope-bar-track">
+                  <div class="scope-bar-fill scope2" id="scope2Bar"></div>
+                </div>
+                <div class="collapse scope-breakdown-detail" id="scope2Detail">
+                  <p class="small text-muted mb-2" data-i18n="results_detail_help">Le percentuali indicano la quota delle emissioni all’interno di questo scope.</p>
                   <div class="small">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                      <span data-i18n="scope3_label_autobus">Autobus</span>
-                      <span><strong id="scope3AutobusVal">0%</strong></span>
-                    </div>
-                    <div class="progress mb-3" style="height: 8px;">
-                      <div id="scope3AutobusBar" class="progress-bar bg-success" style="width: 0%"></div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                      <span data-i18n="scope3_label_macchina">Macchina</span>
-                      <span><strong id="scope3MacchinaVal">0%</strong></span>
-                    </div>
-                    <div class="progress mb-3" style="height: 8px;">
-                      <div id="scope3MacchinaBar" class="progress-bar" style="width: 0%"></div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                      <span data-i18n="scope3_label_elettrica">Elettrica</span>
-                      <span><strong id="scope3ElettricaVal">0%</strong></span>
-                    </div>
-                    <div class="progress" style="height: 8px;">
-                      <div id="scope3ElettricaBar" class="progress-bar bg-info" style="width: 0%"></div>
-                    </div>
+                    <div class="scope-detail-line"><span data-i18n="scope2_label_nonren">Non rinnovabili</span><strong id="scope2NonRinVal">0%</strong></div><div class="scope-detail-track"><div id="scope2NonRinBar" class="scope-detail-fill"></div></div>
+                    <div class="scope-detail-line"><span data-i18n="scope2_label_ren">Rinnovabili</span><strong id="scope2RenVal">0%</strong></div><div class="scope-detail-track"><div id="scope2RenBar" class="scope-detail-fill bg-success"></div></div>
+                    <div class="scope-detail-line"><span data-i18n="scope2_label_autoprod">Autoprodotta</span><strong id="scope2AutoprodVal">0%</strong></div><div class="scope-detail-track"><div id="scope2AutoprodBar" class="scope-detail-fill bg-info"></div></div>
+                    <div class="scope-detail-line"><span data-i18n="scope2_label_selfcons">Autoconsumata</span><strong id="scope2AutoconsVal">0%</strong></div><div class="scope-detail-track"><div id="scope2AutoconsBar" class="scope-detail-fill bg-primary"></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="scope-bar-row">
+                <button class="scope-breakdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#scope3WasteDetail" aria-expanded="false" aria-controls="scope3WasteDetail">
+                  <span data-i18n="scope3w_title">Scope 3 – Rifiuti</span>
+                  <span class="scope-breakdown-total"><span id="scope3WasteVal">0</span> <span data-i18n-html="unit_kg_co2e_year">kg CO<span class="subscript">2</span>e/anno</span></span>
+                </button>
+                <div class="scope-bar-track">
+                  <div class="scope-bar-fill scope3-waste" id="scope3WasteBar"></div>
+                </div>
+                <div class="collapse scope-breakdown-detail" id="scope3WasteDetail">
+                  <p class="small text-muted mb-2" data-i18n="results_detail_help">Le percentuali indicano la quota delle emissioni all’interno di questo scope.</p>
+                  <div class="small">
+                    <div class="scope-detail-line"><span data-i18n="results_detail_plastic">Plastica</span><strong id="scope3WastePlasticVal">0%</strong></div><div class="scope-detail-track"><div id="scope3WastePlasticBar" class="scope-detail-fill"></div></div>
+                    <div class="scope-detail-line"><span data-i18n="results_detail_paper">Carta</span><strong id="scope3WastePaperVal">0%</strong></div><div class="scope-detail-track"><div id="scope3WastePaperBar" class="scope-detail-fill"></div></div>
+                    <div class="scope-detail-line"><span data-i18n="results_detail_glass">Vetro</span><strong id="scope3WasteGlassVal">0%</strong></div><div class="scope-detail-track"><div id="scope3WasteGlassBar" class="scope-detail-fill"></div></div>
+                    <div class="scope-detail-line"><span data-i18n="results_detail_metals">Metalli</span><strong id="scope3WasteMetalsVal">0%</strong></div><div class="scope-detail-track"><div id="scope3WasteMetalsBar" class="scope-detail-fill"></div></div>
+                    <div class="scope-detail-line"><span data-i18n="results_detail_wood">Legno</span><strong id="scope3WasteWoodVal">0%</strong></div><div class="scope-detail-track"><div id="scope3WasteWoodBar" class="scope-detail-fill"></div></div>
+                    <div class="scope-detail-line"><span data-i18n="results_detail_unsorted">Indifferenziati</span><strong id="scope3WasteUnsortedVal">0%</strong></div><div class="scope-detail-track"><div id="scope3WasteUnsortedBar" class="scope-detail-fill"></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="scope-bar-row">
+                <button class="scope-breakdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#scope3TransportDetail" aria-expanded="false" aria-controls="scope3TransportDetail">
+                  <span data-i18n="scope4_title">Scope 3 – Trasporti</span>
+                  <span class="scope-breakdown-total"><span id="scope3TransportVal">0</span> <span data-i18n-html="unit_kg_co2e_year">kg CO<span class="subscript">2</span>e/anno</span></span>
+                </button>
+                <div class="scope-bar-track">
+                  <div class="scope-bar-fill scope3-transport" id="scope3TransportBar"></div>
+                </div>
+                <div class="collapse scope-breakdown-detail" id="scope3TransportDetail">
+                  <p class="small text-muted mb-2" data-i18n="results_detail_help">Le percentuali indicano la quota delle emissioni all’interno di questo scope.</p>
+                  <div class="small">
+                    <div class="scope-detail-line"><span data-i18n="scope3_label_autobus">Autobus</span><strong id="scope3AutobusVal">0%</strong></div><div class="scope-detail-track"><div id="scope3AutobusBar" class="scope-detail-fill bg-success"></div></div>
+                    <div class="scope-detail-line"><span data-i18n="scope3_label_macchina">Macchina</span><strong id="scope3MacchinaVal">0%</strong></div><div class="scope-detail-track"><div id="scope3MacchinaBar" class="scope-detail-fill"></div></div>
+                    <div class="scope-detail-line"><span data-i18n="scope3_label_walk">A piedi</span><strong id="scope3PiediVal">0%</strong></div><div class="scope-detail-track"><div id="scope3PiediBar" class="scope-detail-fill bg-secondary"></div></div>
+                    <div class="scope-detail-line"><span data-i18n="scope3_label_elettrica">Elettrica</span><strong id="scope3ElettricaVal">0%</strong></div><div class="scope-detail-track"><div id="scope3ElettricaBar" class="scope-detail-fill bg-info"></div></div>
                   </div>
                 </div>
               </div>
@@ -356,4 +290,3 @@
   <script src="js/app.js"></script>
 </body>
 </html>
-
